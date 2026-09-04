@@ -564,10 +564,6 @@ The submit job needs two repository secrets: `SUBMISSION_API_URL` and `SUBMISSIO
 =======
 - CI pins **Node 22**. Vitest 5 requires `^22.12 || ^24 || >=26`, so the Node 20 used by the Express version of this project will not work here.
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
 ---
 
 **Happy Coding! 🎮**
