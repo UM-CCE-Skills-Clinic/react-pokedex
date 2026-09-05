@@ -39,6 +39,8 @@ export function getTypeColor(type) {
   return typeColors[type] || '#9099a1';
 }
 
+
+
 // "mr-mime" -> "Mr Mime"
 export function formatName(name) {
   return name
