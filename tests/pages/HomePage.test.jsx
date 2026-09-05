@@ -2,7 +2,7 @@ import axios from 'axios';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import HomePage from '../../src/pages/HomePage';
+import HomePage from '../../src/pages/HomePages.jsx';
 
 // The smallest API answers that HomePage can work with.
 const pokemonResponse = {

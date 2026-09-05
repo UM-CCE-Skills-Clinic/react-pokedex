@@ -34,7 +34,6 @@ function SearchBar() {
   );
 }
 
-
 function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -46,7 +45,7 @@ function Header() {
           <span className="text-lg font-extrabold tracking-tight text-slate-900">
             Poke<span className="text-brand-600">dex</span>
           </span>
-        </Link>         
+        </Link>
         <Link to="/" className="flex items-center gap-2.5">
           {/* ... the logo, unchanged ... */}
         </Link>
