@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+
 // The frame that every page is drawn inside: header, then the page, then footer.
 // React Router puts the current page where <Outlet /> is.
 
@@ -33,6 +34,7 @@ function SearchBar() {
     </form>
   );
 }
+
 function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -45,6 +47,9 @@ function Header() {
             Poke<span className="text-brand-600">dex</span>
           </span>
         </Link>
+
+        {/* SearchBar rendered inside the header layout */}
+        <SearchBar />
       </div>
     </header>
   );
