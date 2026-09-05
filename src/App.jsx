@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
-import PokemonDetailsPage from './pages/PokemonDetailsPage';   // ← add this
+import PokemonDetailsPage from './pages/PokemonDetailsPage';
+import SearchPage from './pages/SearchPage';                   // ← add this
 import { ErrorMessage } from './components/ui';
 
 export default function App() {
@@ -10,7 +11,8 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />   {/* ← add this */}
+          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
+          <Route path="/search" element={<SearchPage />} />     {/* ← add this */}
 
           <Route
             path="*"
