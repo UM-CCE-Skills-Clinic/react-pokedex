@@ -154,6 +154,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       # Node 22 is required: Vitest 5 supports ^22.12 || ^24 || >=26,
       # and Vite 8 supports ^20.19 || >=22.12. Node 20 will not work.
