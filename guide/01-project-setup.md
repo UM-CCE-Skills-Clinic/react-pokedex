@@ -44,11 +44,11 @@ git checkout -b dela-cruz/pokedex-pull-request
 
 ### Branch Naming Examples
 
-| Your Name | Branch Name |
-|-----------|-------------|
+| Your Name      | Branch Name                      |
+| -------------- | -------------------------------- |
 | Juan Dela Cruz | `dela-cruz/pokedex-pull-request` |
-| Maria Santos | `santos/pokedex-pull-request` |
-| John Smith | `smith/pokedex-pull-request` |
+| Maria Santos   | `santos/pokedex-pull-request`    |
+| John Smith     | `smith/pokedex-pull-request`     |
 
 ---
 
@@ -68,28 +68,28 @@ This reads `package.json` and installs everything into `node_modules/`.
 
 **Production Dependencies** — these ship to the browser:
 
-| Package | Purpose |
-|---------|---------|
-| `react` | The library that builds the interface |
-| `react-dom` | Puts React components onto the web page |
-| `react-router-dom` | Shows a different page per address |
-| `axios` | HTTP client for calling PokeAPI |
+| Package            | Purpose                                 |
+| ------------------ | --------------------------------------- |
+| `react`            | The library that builds the interface   |
+| `react-dom`        | Puts React components onto the web page |
+| `react-router-dom` | Shows a different page per address      |
+| `axios`            | HTTP client for calling PokeAPI         |
 
 **Development Dependencies** — these only run on your machine:
 
-| Package | Purpose |
-|---------|---------|
-| `vite` | Dev server and production build tool |
-| `@vitejs/plugin-react` | Teaches Vite to understand JSX |
-| `tailwindcss`, `@tailwindcss/vite` | Styling |
-| `vitest` | Test runner |
-| `@vitest/coverage-v8` | Coverage reports |
-| `jsdom` | A fake browser so tests can render HTML |
-| `@testing-library/react` | Renders components in tests |
-| `@testing-library/jest-dom` | Extra checks like `toBeInTheDocument()` |
-| `@testing-library/user-event` | Simulates typing and clicking |
-| `eslint` + plugins | Code linting (find errors/issues) |
-| `prettier` | Code formatting |
+| Package                            | Purpose                                 |
+| ---------------------------------- | --------------------------------------- |
+| `vite`                             | Dev server and production build tool    |
+| `@vitejs/plugin-react`             | Teaches Vite to understand JSX          |
+| `tailwindcss`, `@tailwindcss/vite` | Styling                                 |
+| `vitest`                           | Test runner                             |
+| `@vitest/coverage-v8`              | Coverage reports                        |
+| `jsdom`                            | A fake browser so tests can render HTML |
+| `@testing-library/react`           | Renders components in tests             |
+| `@testing-library/jest-dom`        | Extra checks like `toBeInTheDocument()` |
+| `@testing-library/user-event`      | Simulates typing and clicking           |
+| `eslint` + plugins                 | Code linting (find errors/issues)       |
+| `prettier`                         | Code formatting                         |
 
 ---
 
@@ -156,16 +156,19 @@ Think of them as the finish line: when all 72 pass in Part 09, your app is built
 1. Create the folders your application code will live in:
 
 **Mac/Linux:**
+
 ```bash
 mkdir -p src/components src/layout src/pages
 ```
 
 **Windows (Command Prompt):**
+
 ```cmd
 mkdir src\components src\layout src\pages
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 mkdir src/components, src/layout, src/pages
 ```
@@ -173,11 +176,13 @@ mkdir src/components, src/layout, src/pages
 2. Delete the starter files we won't use:
 
 **Mac/Linux:**
+
 ```bash
 rm -f src/App.css src/assets/react.svg
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 Remove-Item src/App.css, src/assets/react.svg -ErrorAction SilentlyContinue
 ```
@@ -212,19 +217,19 @@ react-pokedex/
 
 The `package.json` is already configured with these scripts:
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| `dev` | `npm run dev` | Start the dev server with instant reload |
-| `build` | `npm run build` | Build the site into `dist/` |
-| `preview` | `npm run preview` | Preview the built site |
-| `test` | `npm test` | Run tests and re-run them as you edit |
-| `test:run` | `npm run test:run` | Run the tests once |
-| `test:ci` | `npm run test:ci` | Run once with a coverage report |
-| `lint` | `npm run lint` | Check code for errors |
-| `lint:fix` | `npm run lint:fix` | Auto-fix linting errors |
-| `format` | `npm run format` | Format code with Prettier |
-| `format:check` | `npm run format:check` | Check if code is formatted |
-| `ci` | `npm run ci` | Format check → lint → test → build |
+| Script         | Command                | Description                              |
+| -------------- | ---------------------- | ---------------------------------------- |
+| `dev`          | `npm run dev`          | Start the dev server with instant reload |
+| `build`        | `npm run build`        | Build the site into `dist/`              |
+| `preview`      | `npm run preview`      | Preview the built site                   |
+| `test`         | `npm test`             | Run tests and re-run them as you edit    |
+| `test:run`     | `npm run test:run`     | Run the tests once                       |
+| `test:ci`      | `npm run test:ci`      | Run once with a coverage report          |
+| `lint`         | `npm run lint`         | Check code for errors                    |
+| `lint:fix`     | `npm run lint:fix`     | Auto-fix linting errors                  |
+| `format`       | `npm run format`       | Format code with Prettier                |
+| `format:check` | `npm run format:check` | Check if code is formatted               |
+| `ci`           | `npm run ci`           | Format check → lint → test → build       |
 
 > **Note:** You don't need to modify `package.json` or `vite.config.js`. Everything is already set up for you.
 

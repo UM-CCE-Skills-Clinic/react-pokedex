@@ -8,11 +8,10 @@
   Your PR title must also be: <Last Name>/pokedex-pull-request
 -->
 
-First Name: 
-Last Name: 
-Program: 
-UMindanao Email: 
-
+First Name:
+Last Name:
+Program:
+UMindanao Email:
 
 ## Summary
 
@@ -23,7 +22,6 @@ UMindanao Email:
 - Feature 3: Search — find a Pokemon by name or ID
 - Feature 4: Filter by type — browse Pokemon of a single type
 - Built with React, React Router and Tailwind CSS, using data from PokeAPI
-
 
 ## Checklist
 

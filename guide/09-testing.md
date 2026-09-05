@@ -34,13 +34,13 @@ You should see:
 
 ## The Tools
 
-| Tool | Job |
-|------|-----|
-| **Vitest** | Runs the tests. Built into Vite, so it understands JSX with no extra setup. |
-| **React Testing Library** | Renders your components and finds things on screen. |
-| **jsdom** | A fake browser. Node has no DOM, so this provides one. |
-| **`@testing-library/jest-dom`** | Extra checks like `toBeInTheDocument()`. |
-| **`user-event`** | Simulates real typing and clicking. |
+| Tool                            | Job                                                                         |
+| ------------------------------- | --------------------------------------------------------------------------- |
+| **Vitest**                      | Runs the tests. Built into Vite, so it understands JSX with no extra setup. |
+| **React Testing Library**       | Renders your components and finds things on screen.                         |
+| **jsdom**                       | A fake browser. Node has no DOM, so this provides one.                      |
+| **`@testing-library/jest-dom`** | Extra checks like `toBeInTheDocument()`.                                    |
+| **`user-event`**                | Simulates real typing and clicking.                                         |
 
 ---
 
@@ -108,11 +108,11 @@ Instead we replace `axios.get` with a fake:
 vi.spyOn(axios, 'get').mockResolvedValue({ data: pikachuResponse });
 ```
 
-| Piece | Meaning |
-|-------|---------|
-| `vi.spyOn(axios, 'get')` | take over the real `axios.get` |
-| `.mockResolvedValue(x)` | whenever it's called, succeed with `x` |
-| `.mockRejectedValue(e)` | whenever it's called, fail with `e` |
+| Piece                    | Meaning                                |
+| ------------------------ | -------------------------------------- |
+| `vi.spyOn(axios, 'get')` | take over the real `axios.get`         |
+| `.mockResolvedValue(x)`  | whenever it's called, succeed with `x` |
+| `.mockRejectedValue(e)`  | whenever it's called, fail with `e`    |
 
 Faking a 404 becomes trivial:
 
@@ -163,11 +163,11 @@ That's why restyling your components doesn't break the tests. Had they searched 
 
 ### The three prefixes
 
-| Prefix | If not found | Use for |
-|--------|--------------|---------|
-| `getBy...` | throws immediately | something that should be there right now |
-| `queryBy...` | returns `null` | checking something is **absent** |
-| `findBy...` | waits, then throws | something that appears **after** loading |
+| Prefix       | If not found       | Use for                                  |
+| ------------ | ------------------ | ---------------------------------------- |
+| `getBy...`   | throws immediately | something that should be there right now |
+| `queryBy...` | returns `null`     | checking something is **absent**         |
+| `findBy...`  | waits, then throws | something that appears **after** loading |
 
 `findBy` is what makes async tests work:
 
@@ -260,11 +260,11 @@ File               | % Stmts | % Branch | % Funcs | % Lines |
 All files          |     100 |    89.09 |     100 |     100 |
 ```
 
-| Column | Meaning |
-|--------|---------|
-| `% Stmts` | lines of code that ran |
+| Column     | Meaning                           |
+| ---------- | --------------------------------- |
+| `% Stmts`  | lines of code that ran            |
 | `% Branch` | `if`/`else` paths that were taken |
-| `% Funcs` | functions that were called |
+| `% Funcs`  | functions that were called        |
 
 You should see **100% statements, functions and lines**, and about **89% branches**.
 
@@ -330,18 +330,18 @@ All four must pass. This is the same sequence GitHub Actions runs on your Pull R
 
 ## Step 8: If Something Fails
 
-| Failing | Where to look | Built in |
-|---------|---------------|----------|
-| `tests/utils.test.js` | `src/utils.js` | Part 04 |
-| `tests/components/ui.test.jsx` | `src/components/ui.jsx` | Feature 1 |
-| `tests/components/PokemonGrid.test.jsx` | `src/components/PokemonGrid.jsx` | Feature 1 |
-| `tests/pages/HomePage.test.jsx` | `src/pages/HomePage.jsx` | Feature 1 |
-| `tests/components/PokemonDetail.test.jsx` | `src/components/PokemonDetail.jsx` | Feature 2 |
-| `tests/pages/PokemonDetailsPage.test.jsx` | `src/pages/PokemonDetailsPage.jsx` | Feature 2 |
-| `tests/layout/Layout.test.jsx` | `src/layout/Layout.jsx` | Feature 3 |
-| `tests/pages/SearchPage.test.jsx` | `src/pages/SearchPage.jsx` | Feature 3 |
-| `tests/pages/TypePage.test.jsx` | `src/pages/TypePage.jsx` | Feature 4 |
-| `tests/App.test.jsx` | `src/App.jsx` — usually an import path | Features 1–4 |
+| Failing                                   | Where to look                          | Built in     |
+| ----------------------------------------- | -------------------------------------- | ------------ |
+| `tests/utils.test.js`                     | `src/utils.js`                         | Part 04      |
+| `tests/components/ui.test.jsx`            | `src/components/ui.jsx`                | Feature 1    |
+| `tests/components/PokemonGrid.test.jsx`   | `src/components/PokemonGrid.jsx`       | Feature 1    |
+| `tests/pages/HomePage.test.jsx`           | `src/pages/HomePage.jsx`               | Feature 1    |
+| `tests/components/PokemonDetail.test.jsx` | `src/components/PokemonDetail.jsx`     | Feature 2    |
+| `tests/pages/PokemonDetailsPage.test.jsx` | `src/pages/PokemonDetailsPage.jsx`     | Feature 2    |
+| `tests/layout/Layout.test.jsx`            | `src/layout/Layout.jsx`                | Feature 3    |
+| `tests/pages/SearchPage.test.jsx`         | `src/pages/SearchPage.jsx`             | Feature 3    |
+| `tests/pages/TypePage.test.jsx`           | `src/pages/TypePage.jsx`               | Feature 4    |
+| `tests/App.test.jsx`                      | `src/App.jsx` — usually an import path | Features 1–4 |
 
 Common causes:
 
@@ -352,18 +352,18 @@ Common causes:
 
 ### Specific failures and what they mean
 
-| Failing test | Likely cause |
-|--------------|--------------|
-| "shows a loading message first" | `useState(false)` for loading — it must start `true` |
-| "asks the API for the page in the address bar" | Offset maths. Page 3 is `(3-1) × 20 = 40` |
-| `Found multiple elements` in a grid test | A missing `key` on one of the `.map()` calls |
-| `Found multiple elements with the text: Hidden` | The `&&` is outside the `.map()`, so every ability gets the badge |
-| "says not found when there is no such Pokemon" | Early-return order — `loading` must be checked before `pokemon === null` |
-| "says not found when the type does not exist" | Missing the `!loading &&` guard on the not-found return |
-| "splits the list into pages of 20" | Slicing `members` *after* `loadMany` instead of before |
-| "goes to the search page when you search" | Missing `event.preventDefault()`, or the input lacks `value`/`onChange` |
-| "falls back to matching part of a name" | The `return` after the exact match must be *inside* the `if` |
-| Anything in `App.test.jsx` | Almost always an import path or capitalisation |
+| Failing test                                    | Likely cause                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------ |
+| "shows a loading message first"                 | `useState(false)` for loading — it must start `true`                     |
+| "asks the API for the page in the address bar"  | Offset maths. Page 3 is `(3-1) × 20 = 40`                                |
+| `Found multiple elements` in a grid test        | A missing `key` on one of the `.map()` calls                             |
+| `Found multiple elements with the text: Hidden` | The `&&` is outside the `.map()`, so every ability gets the badge        |
+| "says not found when there is no such Pokemon"  | Early-return order — `loading` must be checked before `pokemon === null` |
+| "says not found when the type does not exist"   | Missing the `!loading &&` guard on the not-found return                  |
+| "splits the list into pages of 20"              | Slicing `members` _after_ `loadMany` instead of before                   |
+| "goes to the search page when you search"       | Missing `event.preventDefault()`, or the input lacks `value`/`onChange`  |
+| "falls back to matching part of a name"         | The `return` after the exact match must be _inside_ the `if`             |
+| Anything in `App.test.jsx`                      | Almost always an import path or capitalisation                           |
 
 Fix, re-run, repeat until green. **Never edit a test to make it pass** — the test describes what the app should do.
 

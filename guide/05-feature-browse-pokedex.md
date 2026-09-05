@@ -26,7 +26,7 @@ Clicking a card or a chip will say "Page not found" — those are Features 2 and
 
 ## Step 1: The Page
 
-The page decides *what* to load and *what* to show. Create `src/pages/HomePage.jsx`:
+The page decides _what_ to load and _what_ to show. Create `src/pages/HomePage.jsx`:
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -125,11 +125,11 @@ const [searchParams] = useSearchParams();
 const page = Number(searchParams.get('page')) || 1;
 ```
 
-| Address | `.get('page')` | `page` |
-|---------|----------------|--------|
-| `/` | `null` | `1` |
-| `/?page=3` | `"3"` | `3` |
-| `/?page=abc` | `"abc"` | `1` |
+| Address      | `.get('page')` | `page` |
+| ------------ | -------------- | ------ |
+| `/`          | `null`         | `1`    |
+| `/?page=3`   | `"3"`          | `3`    |
+| `/?page=abc` | `"abc"`        | `1`    |
 
 `.get()` always returns a **string** or `null`, so we wrap it in `Number(...)`. `Number('abc')` is `NaN`, which is falsy — so `|| 1` handles both the missing and the nonsense case.
 
@@ -137,23 +137,23 @@ We could have used `useState(1)` instead. Putting it in the address means the Ba
 
 ### The three pieces of state
 
-| State | Starts as | Why |
-|-------|-----------|-----|
-| `data` | `null` | Nothing loaded yet. `null` clearly means "not loaded". |
-| `loading` | `true` | We start loading immediately, so it's true from the first frame. |
-| `error` | `null` | Nothing has gone wrong yet. |
+| State     | Starts as | Why                                                              |
+| --------- | --------- | ---------------------------------------------------------------- |
+| `data`    | `null`    | Nothing loaded yet. `null` clearly means "not loaded".           |
+| `loading` | `true`    | We start loading immediately, so it's true from the first frame. |
+| `error`   | `null`    | Nothing has gone wrong yet.                                      |
 
 > **Why is `loading` `true` and not `false`?** If it started `false`, the very first render would flash "No Pokemon found" before the request even began. Starting `true` shows the spinner first.
 
 ### The effect
 
-`useEffect` runs code *after* the component appears. The array at the end is the **dependency list**:
+`useEffect` runs code _after_ the component appears. The array at the end is the **dependency list**:
 
-| Dependency list | Runs |
-|-----------------|------|
-| `[]` | once, when the component first appears |
-| `[page]` | on first appearance, and again whenever `page` changes |
-| omitted | after *every* redraw — almost always a bug |
+| Dependency list | Runs                                                   |
+| --------------- | ------------------------------------------------------ |
+| `[]`            | once, when the component first appears                 |
+| `[page]`        | on first appearance, and again whenever `page` changes |
+| omitted         | after _every_ redraw — almost always a bug             |
 
 `[page]` is what makes pagination work: click Next → address becomes `/?page=2` → `page` changes → the effect runs again.
 
@@ -161,10 +161,10 @@ You can't write `useEffect(async () => ...)`, because React expects the effect t
 
 The offset maths:
 
-| Page | Calculation | Offset | Shows |
-|------|-------------|--------|-------|
-| 1 | `(1-1) × 20` | 0 | 1–20 |
-| 2 | `(2-1) × 20` | 20 | 21–40 |
+| Page | Calculation  | Offset | Shows |
+| ---- | ------------ | ------ | ----- |
+| 1    | `(1-1) × 20` | 0      | 1–20  |
+| 2    | `(2-1) × 20` | 20     | 21–40 |
 
 And `Math.ceil(1351 / 20)` is 68 — rounded **up**, because the last 11 Pokemon still need a page.
 
@@ -331,7 +331,7 @@ export default function App() {
 </Route>
 ```
 
-The outer `Route` has **no `path`** — it exists only to wrap the others. It's called a *layout route*, and every page inside it gets drawn at `<Outlet />`:
+The outer `Route` has **no `path`** — it exists only to wrap the others. It's called a _layout route_, and every page inside it gets drawn at `<Outlet />`:
 
 ```
 <Layout>
@@ -493,13 +493,13 @@ function Loading({ text = 'Loading Pokemon...' }) { ... }
 {page > 1 ? <Link ...>← Previous</Link> : <span ...>← Previous</span>}
 ```
 
-On page 1 "Previous" becomes a `<span>` — it *looks* disabled and genuinely isn't clickable, because a span has no address.
+On page 1 "Previous" becomes a `<span>` — it _looks_ disabled and genuinely isn't clickable, because a span has no address.
 
 **The `makeLink` prop is a function.** Different pages need different addresses:
 
-| Page | Passes |
-|------|--------|
-| Home | ``makeLink={(target) => `/?page=${target}`}`` |
+| Page | Passes                                                    |
+| ---- | --------------------------------------------------------- |
+| Home | ``makeLink={(target) => `/?page=${target}`}``             |
 | Type | ``makeLink={(target) => `/type/${type}?page=${target}`}`` |
 
 Passing functions as props is an everyday React pattern.
@@ -672,16 +672,16 @@ npm run dev
 
 Open `http://localhost:5173`. **The Pokedex should load.**
 
-| Try this | Expect |
-|----------|--------|
-| Load the page | Spinner, then a grid of 20 Pokemon |
-| Look at the top | Sticky header with the Pokeball logo |
-| Look above the grid | Coloured type chips, with "All" highlighted |
-| Click **Next** | Page 2, address becomes `/?page=2` |
-| Press **Back** | Page 1 again |
-| Resize narrow (F12, `Ctrl+Shift+M`) | Grid drops to 2 columns |
-| Visit `/nonsense` | "Page not found", still inside the layout |
-| Click a card or a chip | "Page not found" — that's Features 2 and 4 |
+| Try this                            | Expect                                      |
+| ----------------------------------- | ------------------------------------------- |
+| Load the page                       | Spinner, then a grid of 20 Pokemon          |
+| Look at the top                     | Sticky header with the Pokeball logo        |
+| Look above the grid                 | Coloured type chips, with "All" highlighted |
+| Click **Next**                      | Page 2, address becomes `/?page=2`          |
+| Press **Back**                      | Page 1 again                                |
+| Resize narrow (F12, `Ctrl+Shift+M`) | Grid drops to 2 columns                     |
+| Visit `/nonsense`                   | "Page not found", still inside the layout   |
+| Click a card or a chip              | "Page not found" — that's Features 2 and 4  |
 
 > **Blank page?** Open the console (F12). A red error names the file and line — usually a wrong import path or a missing `export default`.
 >

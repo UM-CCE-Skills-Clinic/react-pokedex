@@ -10,13 +10,13 @@ Same three steps: **Page → Route → Components**.
 
 A search box in the header. Type and press Enter:
 
-| Search | Result |
-|--------|--------|
-| `pikachu` | Straight to Pikachu |
-| `25` | Also Pikachu — IDs work |
-| `char` | Charmander, Charmeleon, Charizard, and more |
-| `zzzz` | "No Pokemon found" |
-| (empty) | Back to the home page |
+| Search    | Result                                      |
+| --------- | ------------------------------------------- |
+| `pikachu` | Straight to Pikachu                         |
+| `25`      | Also Pikachu — IDs work                     |
+| `char`    | Charmander, Charmeleon, Charizard, and more |
+| `zzzz`    | "No Pokemon found"                          |
+| (empty)   | Back to the home page                       |
 
 ---
 
@@ -146,12 +146,12 @@ PokeAPI has **no search endpoint**, so we build one:
 
 Step 1 is what makes `pikachu` or `25` jump straight to the right Pokemon instead of returning a list of near-misses.
 
-| You type | Step 1 | Result |
-|----------|--------|--------|
-| `pikachu` | found | Pikachu |
-| `25` | found (IDs work too) | Pikachu |
-| `char` | 404 | Charmander, Charmeleon, Charizard, ... |
-| `zzzz` | 404, then no matches | the empty message |
+| You type  | Step 1               | Result                                 |
+| --------- | -------------------- | -------------------------------------- |
+| `pikachu` | found                | Pikachu                                |
+| `25`      | found (IDs work too) | Pikachu                                |
+| `char`    | 404                  | Charmander, Charmeleon, Charizard, ... |
+| `zzzz`    | 404, then no matches | the empty message                      |
 
 Note the `return` after the exact match — it's inside `load`, and it stops us running step 2 unnecessarily.
 
@@ -187,7 +187,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
 import PokemonDetailsPage from './pages/PokemonDetailsPage';
-import SearchPage from './pages/SearchPage';                   // ← add this
+import SearchPage from './pages/SearchPage'; // ← add this
 import { ErrorMessage } from './components/ui';
 
 export default function App() {
@@ -198,8 +198,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
-          <Route path="/search" element={<SearchPage />} />     {/* ← add this */}
-
+          <Route path="/search" element={<SearchPage />} /> {/* ← add this */}
           {/* "*" matches any address we did not list above. */}
           <Route
             path="*"
@@ -223,10 +222,10 @@ export default function App() {
 
 That's the difference from Feature 2:
 
-| Feature | Route | Read with |
-|---------|-------|-----------|
-| Details | `/pokemon/:nameOrId` | `useParams()` |
-| Search | `/search` | `useSearchParams()` |
+| Feature | Route                | Read with           |
+| ------- | -------------------- | ------------------- |
+| Details | `/pokemon/:nameOrId` | `useParams()`       |
+| Search  | `/search`            | `useSearchParams()` |
 
 ---
 
@@ -338,16 +337,16 @@ The input has a placeholder, but placeholders vanish as soon as you type and are
 npm run dev
 ```
 
-| Try this | Expect |
-|----------|--------|
+| Try this                    | Expect                                             |
+| --------------------------- | -------------------------------------------------- |
 | Type `pikachu`, press Enter | Pikachu, and the address reads `/search?q=pikachu` |
-| Type `25`, press Enter | Also Pikachu |
-| Type `char`, press Enter | Several Charmander-family cards, with a count |
-| Type `zzzz`, press Enter | "No Pokemon found" |
-| Press Enter on an empty box | Back to the home page |
-| Click **Clear search →** | Back to the home page |
-| Search, then press **Back** | Where you were before |
-| Click a result card | Its detail page — Feature 2 still works |
+| Type `25`, press Enter      | Also Pikachu                                       |
+| Type `char`, press Enter    | Several Charmander-family cards, with a count      |
+| Type `zzzz`, press Enter    | "No Pokemon found"                                 |
+| Press Enter on an empty box | Back to the home page                              |
+| Click **Clear search →**    | Back to the home page                              |
+| Search, then press **Back** | Where you were before                              |
+| Click a result card         | Its detail page — Feature 2 still works            |
 
 ---
 

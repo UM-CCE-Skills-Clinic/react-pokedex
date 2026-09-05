@@ -42,13 +42,13 @@ Try `http://localhost:5173/pokemon/charizard-mega-x`. It has no species entry of
 
 Type in the header search box and press Enter:
 
-| Search | What happens |
-|--------|--------------|
-| `pikachu` | Jumps straight to Pikachu (exact match) |
-| `25` | Also Pikachu — IDs work too |
-| `char` | Charmander, Charmeleon, Charizard, and more |
-| `zzzz` | "No Pokemon found" |
-| (empty) | Sends you back to the home page |
+| Search    | What happens                                |
+| --------- | ------------------------------------------- |
+| `pikachu` | Jumps straight to Pikachu (exact match)     |
+| `25`      | Also Pikachu — IDs work too                 |
+| `char`    | Charmander, Charmeleon, Charizard, and more |
+| `zzzz`    | "No Pokemon found"                          |
+| (empty)   | Sends you back to the home page             |
 
 ### Feature 4 — Filter by Type
 
@@ -56,11 +56,11 @@ Click any coloured chip, e.g. `/type/water`. Type pages are paginated too. Click
 
 ### Error Pages
 
-| Try | Expect |
-|-----|--------|
-| `/pokemon/notreal` | "Pokemon not found" |
-| `/type/banana` | "Type not found" |
-| `/some/random/address` | "Page not found" |
+| Try                    | Expect              |
+| ---------------------- | ------------------- |
+| `/pokemon/notreal`     | "Pokemon not found" |
+| `/type/banana`         | "Type not found"    |
+| `/some/random/address` | "Page not found"    |
 
 All three keep the header and footer, with a link back.
 
