@@ -58,16 +58,22 @@ export function TypeFilter({ selectedType }) {
         All
       </Link>
 
-      {types.map((type) => (
-        <Link
-          key={type.name}
-          to={`/type/${type.name}`}
-          className="shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-white"
-          style={{ backgroundColor: getTypeColor(type.name) }}
-        >
-          {type.displayName}
-        </Link>
-      ))}
+      {types.map((type) => {
+        const isSelected = selectedType === type.name;
+
+        return (
+          <Link
+            key={type.name}
+            to={`/type/${type.name}`}
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-white transition-all ${
+              isSelected ? 'ring-2 ring-slate-900 ring-offset-2' : 'hover:opacity-90'
+            }`}
+            style={{ backgroundColor: getTypeColor(type.name) }}
+          >
+            {type.displayName}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
