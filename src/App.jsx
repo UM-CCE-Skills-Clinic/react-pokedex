@@ -3,6 +3,7 @@ import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
 import PokemonDetailsPage from './pages/PokemonDetailsPage';
 import SearchPage from './pages/SearchPage';  
+import TypePage from './pages/TypePage';
 import { ErrorMessage } from './components/ui';
 
 // This is the list of pages in the app, and the address each one lives at.
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
            <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} /> 
              <Route path="/search" element={<SearchPage />} /> 
+             <Route path="/type/:type" element={<TypePage />} />
 
           {/* "*" matches any address we did not list above. */}
           <Route
