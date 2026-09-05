@@ -133,7 +133,7 @@ export default function TypePage() {
 }
 ```
 
-This page combines everything so far: a path placeholder *and* a query string, pagination, and a not-found case.
+This page combines everything so far: a path placeholder _and_ a query string, pagination, and a not-found case.
 
 ### Two dependencies
 
@@ -244,13 +244,13 @@ Two lines are new: the `TypePage` import, and the `/type/:type` route.
 
 **Your route table is now complete.** Five routes:
 
-| Address | Page | Reads the address with |
-|---------|------|------------------------|
-| `/` | HomePage | `useSearchParams` (`?page=`) |
-| `/pokemon/:nameOrId` | PokemonDetailsPage | `useParams` |
-| `/search` | SearchPage | `useSearchParams` (`?q=`) |
-| `/type/:type` | TypePage | both |
-| `*` | "Page not found" | — |
+| Address              | Page               | Reads the address with       |
+| -------------------- | ------------------ | ---------------------------- |
+| `/`                  | HomePage           | `useSearchParams` (`?page=`) |
+| `/pokemon/:nameOrId` | PokemonDetailsPage | `useParams`                  |
+| `/search`            | SearchPage         | `useSearchParams` (`?q=`)    |
+| `/type/:type`        | TypePage           | both                         |
+| `*`                  | "Page not found"   | —                            |
 
 ---
 
@@ -279,11 +279,11 @@ Look back at the top of `TypeFilter`:
 
 The "All" chip styles itself from `selectedType`:
 
-| Page | Passes | "All" chip looks |
-|------|--------|------------------|
-| Home | `selectedType=""` | dark — you're viewing everything |
-| Search | `selectedType=""` | dark |
-| Type | `selectedType={type}` | plain white — it's a way *back* |
+| Page   | Passes                | "All" chip looks                 |
+| ------ | --------------------- | -------------------------------- |
+| Home   | `selectedType=""`     | dark — you're viewing everything |
+| Search | `selectedType=""`     | dark                             |
+| Type   | `selectedType={type}` | plain white — it's a way _back_  |
 
 An empty string is falsy, so `selectedType ? ... : ...` picks the dark style when nothing is filtered.
 
@@ -305,16 +305,16 @@ className={condition ? 'these classes' : 'those classes'}
 npm run dev
 ```
 
-| Try this | Expect |
-|----------|--------|
-| Click the **Water** chip | Only water Pokemon, address `/type/water` |
-| Look at the chips | "All" is now plain white, not dark |
-| Look under the heading | "142 Pokemon of this type" |
-| Click **Next** | Page 2, address `/type/water?page=2` |
-| Click a different chip | That type, back on page 1 |
-| Click **All** or **Show all →** | Home |
-| Click a card | Its detail page |
-| Visit `/type/banana` | "Type not found" |
+| Try this                        | Expect                                    |
+| ------------------------------- | ----------------------------------------- |
+| Click the **Water** chip        | Only water Pokemon, address `/type/water` |
+| Look at the chips               | "All" is now plain white, not dark        |
+| Look under the heading          | "142 Pokemon of this type"                |
+| Click **Next**                  | Page 2, address `/type/water?page=2`      |
+| Click a different chip          | That type, back on page 1                 |
+| Click **All** or **Show all →** | Home                                      |
+| Click a card                    | Its detail page                           |
+| Visit `/type/banana`            | "Type not found"                          |
 
 **Every feature now works.** Browse, details, search and filtering — plus pagination and friendly errors throughout.
 

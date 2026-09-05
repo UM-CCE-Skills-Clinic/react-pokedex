@@ -16,15 +16,15 @@ A Pokedex single-page app that:
 
 ## Technologies Used
 
-| Technology | Purpose |
-|------------|---------|
-| **React** | Builds the interface out of small, reusable components |
-| **Vite** | Dev server and build tool — fast, with instant reloads |
-| **React Router** | Shows a different page for each address in the browser |
-| **Tailwind CSS v4** | Utility-first styling, configured in CSS |
-| **Axios** | HTTP client for making API requests |
-| **PokeAPI** | External API providing Pokemon data |
-| **Vitest + React Testing Library** | Testing the helpers, components and pages |
+| Technology                         | Purpose                                                |
+| ---------------------------------- | ------------------------------------------------------ |
+| **React**                          | Builds the interface out of small, reusable components |
+| **Vite**                           | Dev server and build tool — fast, with instant reloads |
+| **React Router**                   | Shows a different page for each address in the browser |
+| **Tailwind CSS v4**                | Utility-first styling, configured in CSS               |
+| **Axios**                          | HTTP client for making API requests                    |
+| **PokeAPI**                        | External API providing Pokemon data                    |
+| **Vitest + React Testing Library** | Testing the helpers, components and pages              |
 
 ## Prerequisites
 
@@ -57,18 +57,18 @@ You should see version numbers displayed. If not, install the missing tools firs
 
 This guide is split into the following parts. **Follow them in order — each part builds on the previous one, and nothing should be skipped.**
 
-| Part | Topic | Description |
-|------|-------|-------------|
-| 01 | Project Setup | Fork, clone, branch, install, and tour the starter |
-| 02 | How the App Is Organised | The folders, and how we build one feature at a time |
-| 03 | Styling with Tailwind | Set up the theme and page shell |
-| 04 | Shared Helpers | Build `src/utils.js` — formatting and API loading |
-| 05 | **Feature 1: Browse the Pokedex** | The home page grid and pagination |
-| 06 | **Feature 2: Pokemon Details** | Click a card, see everything about it |
-| 07 | **Feature 3: Search** | Find a Pokemon by name or ID |
-| 08 | **Feature 4: Filter by Type** | Make the coloured chips work |
-| 09 | Testing | Understand and run the provided test suite |
-| 10 | Running the App | Use the app, then open your Pull Request |
+| Part | Topic                             | Description                                         |
+| ---- | --------------------------------- | --------------------------------------------------- |
+| 01   | Project Setup                     | Fork, clone, branch, install, and tour the starter  |
+| 02   | How the App Is Organised          | The folders, and how we build one feature at a time |
+| 03   | Styling with Tailwind             | Set up the theme and page shell                     |
+| 04   | Shared Helpers                    | Build `src/utils.js` — formatting and API loading   |
+| 05   | **Feature 1: Browse the Pokedex** | The home page grid and pagination                   |
+| 06   | **Feature 2: Pokemon Details**    | Click a card, see everything about it               |
+| 07   | **Feature 3: Search**             | Find a Pokemon by name or ID                        |
+| 08   | **Feature 4: Filter by Type**     | Make the coloured chips work                        |
+| 09   | Testing                           | Understand and run the provided test suite          |
+| 10   | Running the App                   | Use the app, then open your Pull Request            |
 
 ### How the feature parts work
 
@@ -144,7 +144,7 @@ const [text, setText] = useState('');
 
 ### 4. Side Effects with `useEffect`
 
-`useEffect` runs code *after* the component appears on screen — which is where we load data from the API:
+`useEffect` runs code _after_ the component appears on screen — which is where we load data from the API:
 
 ```jsx
 useEffect(() => {
@@ -174,15 +174,15 @@ When committing your work, follow the **Conventional Commits** format:
 
 ### Commit Types
 
-| Type | When to Use |
-|------|-------------|
-| `feat` | Adding a new feature |
-| `fix` | Fixing a bug |
-| `docs` | Documentation changes |
-| `style` | Code formatting (no logic changes) |
-| `refactor` | Code restructuring |
-| `test` | Adding or updating tests |
-| `chore` | Maintenance tasks |
+| Type       | When to Use                        |
+| ---------- | ---------------------------------- |
+| `feat`     | Adding a new feature               |
+| `fix`      | Fixing a bug                       |
+| `docs`     | Documentation changes              |
+| `style`    | Code formatting (no logic changes) |
+| `refactor` | Code restructuring                 |
+| `test`     | Adding or updating tests           |
+| `chore`    | Maintenance tasks                  |
 
 ### Example Commit Message
 
