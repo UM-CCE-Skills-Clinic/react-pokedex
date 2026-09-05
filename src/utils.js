@@ -39,7 +39,7 @@ export function getTypeColor(type) {
   return typeColors[type] || '#9099a1';
 }
 
-/ "mr-mime" -> "Mr Mime"
+// "mr-mime" -> "Mr Mime"
 export function formatName(name) {
   return name
     .split('-')
@@ -152,11 +152,3 @@ export async function loadMany(entries) {
   const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
   return results.filter((pokemon) => pokemon !== null);
 }
-
-// Slow — waits for each one before starting the next (about 20 x 200ms = 4s)
-for (const entry of entries) {
-  results.push(await loadPokemon(entry.name));
-}
-
-// Fast — starts all 20 at once, waits for the slowest (about 400ms)
-await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
