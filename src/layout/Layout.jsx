@@ -48,7 +48,7 @@ function Header() {
           </span>
         </Link>
 
-    <SearchBar/>
+        <SearchBar />
       </div>
     </header>
   );
