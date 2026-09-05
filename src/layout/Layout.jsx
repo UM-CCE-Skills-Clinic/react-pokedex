@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
-
 function SearchBar() {
   const navigate = useNavigate();
 
@@ -47,7 +46,7 @@ function Header() {
             Poke<span className="text-brand-600">dex</span>
           </span>
         </Link>
-          <SearchBar />
+        <SearchBar />
       </div>
     </header>
   );
