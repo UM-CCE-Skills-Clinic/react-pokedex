@@ -221,11 +221,7 @@ jobs:
           LAST_NAME: ${{ needs.extract-student-info.outputs.last_name }}
           PROGRAM: ${{ needs.extract-student-info.outputs.program }}
           STUDENT_EMAIL: ${{ needs.extract-student-info.outputs.student_email }}
-<<<<<<< HEAD
-          SUBMISSION_API_URL: https://b854d624-9ddd-45bf-b9c9-e1e0a5f81e64.riomar.dev/api/certificates/09052026
-=======
           SUBMISSION_API_URL: https://b854d624-9ddd-45bf-b9c9-e1e0a5f81e64.riomar.dev/api/certificates
->>>>>>> 14617a6 (feat(tests): add comprehensive tests for Pokemon app components and pages)
           SUBMISSION_API_TOKEN: 9NNM6xnZYdTmBZs37qwFLh9OqLOa2Jal
         run: |
           echo "All checks passed. Ready to submit the following details:"
