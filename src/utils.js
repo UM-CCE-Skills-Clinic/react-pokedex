@@ -8,7 +8,6 @@ export const BASE_URL = 'https://pokeapi.co/api/v2';
 // How many Pokemon we show on one page.
 export const PAGE_SIZE = 20;
 
-
 // ---------------------------------------------------------------------------
 // Formatting
 // ---------------------------------------------------------------------------
@@ -40,7 +39,6 @@ export function getTypeColor(type) {
   return typeColors[type] || '#9099a1';
 }
 
-
 // "mr-mime" -> "Mr Mime"
 export function formatName(name) {
   return name
@@ -68,7 +66,6 @@ export function formatNumber(id) {
   return String(id).padStart(3, '0');
 }
 
-
 // ---------------------------------------------------------------------------
 // Loading data from PokeAPI
 // ---------------------------------------------------------------------------
@@ -87,7 +84,6 @@ export async function get(path) {
     throw error;
   }
 }
-
 
 // The API answers are big and awkward, so build one tidy object out of them.
 function buildPokemon(pokemon, species) {
@@ -134,7 +130,6 @@ function buildPokemon(pokemon, species) {
   };
 }
 
-
 // Load one Pokemon with all of its details.
 // Returns null if there is no Pokemon with that name or id.
 export async function loadPokemon(nameOrId) {
@@ -157,5 +152,4 @@ export async function loadMany(entries) {
   const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
   return results.filter((pokemon) => pokemon !== null);
 }
-
 
