@@ -14,7 +14,7 @@ export default function App() {
         {/* Every page inside here is drawn inside Layout. */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} /> 
+          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/type/:type" element={<TypePage />} />
 
