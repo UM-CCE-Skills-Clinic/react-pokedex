@@ -1,4 +1,4 @@
-    import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import PokemonGrid, { TypeFilter } from '../components/PokemonGrid';
 import { Empty, ErrorMessage, Loading, Pagination } from '../components/ui';
