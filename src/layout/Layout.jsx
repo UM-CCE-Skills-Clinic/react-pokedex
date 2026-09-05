@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 // The frame that every page is drawn inside: header, then the page, then footer.
