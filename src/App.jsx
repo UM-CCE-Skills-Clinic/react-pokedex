@@ -1,35 +1,47 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './layout/Layout';
-import HomePage from './pages/HomePage';
-import PokemonDetailsPage from './pages/PokemonDetailsPage';
-import SearchPage from './pages/SearchPage';
-import TypePage from './pages/TypePage';
-import { ErrorMessage } from './components/ui';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 
-// This is the list of pages in the app, and the address each one lives at.
-// ":type" and ":nameOrId" are placeholders - the page reads them with useParams.
+function HomePage() {
+  return (
+    <div>
+      <h1>Discover every Pokemon</h1>
+    </div>
+  );
+}
+
+function SearchPage() {
+  return (
+    <div>
+      <h1>Search results</h1>
+    </div>
+  );
+}
+
+function TypePage() {
+  const { type } = useParams();
+  return (
+    <div>
+      <h1>Filtered by type</h1>
+      <p>{type}</p>
+    </div>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <div>
+      <h1>Page not found</h1>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Every page inside here is drawn inside Layout. */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/type/:type" element={<TypePage />} />
-
-          {/* "*" matches any address we did not list above. */}
-          <Route
-            path="*"
-            element={
-              <ErrorMessage
-                title="Page not found"
-                text="The page you are looking for does not exist."
-              />
-            }
-          />
-        </Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/type/:type" element={<TypePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

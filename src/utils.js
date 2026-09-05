@@ -146,15 +146,9 @@ export async function loadPokemon(nameOrId) {
 
 // The list endpoints only give us names, so we load the details for each one.
 // Promise.all runs those requests at the same time, not one after another.
+
 export async function loadMany(entries) {
   const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
+
   return results.filter((pokemon) => pokemon !== null);
 }
-
-// Slow — waits for each one before starting the next (about 20 x 200ms = 4s)
-for (const entry of entries) {
-  results.push(await loadPokemon(entry.name));
-}
-
-// Fast — starts all 20 at once, waits for the slowest (about 400ms)
-await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
