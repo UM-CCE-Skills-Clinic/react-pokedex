@@ -1,0 +1,86 @@
+import axios from 'axios';
+
+// Shared helpers. Each page does its own loading with useState and useEffect,
+// but they all use the small functions here so the same code is not repeated.
+
+export const BASE_URL = 'https://pokeapi.co/api/v2';
+
+// How many Pokemon we show on one page.
+export const PAGE_SIZE = 20;
+
+// ---------------------------------------------------------------------------
+// Formatting
+// ---------------------------------------------------------------------------
+
+// The colour used for each Pokemon type.
+const typeColors = {
+    normal: '#9099a1',
+    fire: '#ff9c54',
+    water: '#4d90d5',
+    electric: '#f3d23b',
+    grass: '#63bb5b',
+    ice: '#74cec0',
+    fighting: '#ce4069',
+    poison: '#ab6ac8',
+    ground: '#d97746',
+    flying: '#8fa8dd',
+    psychic: '#f97176',
+    bug: '#90c12c',
+    rock: '#c7b78b',
+    ghost: '#5269ad',
+    dragon: '#0a6dc4',
+    dark: '#5a5366',
+    steel: '#5a8ea1',
+    fairy: '#ec8fe6'
+};
+
+// Grey is the fallback for anything unexpected.
+export function getTypeColor(type) {
+    return typeColors[type] || '#9099a1';
+}
+
+// "mr-mime" -> "Mr Mime"
+export function formatName(name) {
+    return name
+        .split('-')
+        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+// The API uses names like "special-attack"; these are nicer to read.
+const statNames = {
+    hp: 'HP',
+    attack: 'Attack',
+    defense: 'Defense',
+    'special-attack': 'Sp. Atk',
+    'special-defense': 'Sp. Def',
+    speed: 'Speed'
+};
+
+export function formatStatName(name) {
+    return statNames[name] || formatName(name);
+}
+
+// 25 -> "025"
+export function formatNumber(id) {
+    return String(id).padStart(3, '0');
+}
+
+// ---------------------------------------------------------------------------
+// Loading data from PokeAPI
+// ---------------------------------------------------------------------------
+
+// Ask the API for one thing. Returns null if it does not exist, because a
+// missing Pokemon is a normal thing to happen, not a crash.
+export async function get(path) {
+    try {
+        const response = await axios.get(`${BASE_URL}${path}`);
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            return null;
+        }
+        // Anything else (no internet, server down) is a real problem, so pass it on.
+        throw error;
+    }
+}
