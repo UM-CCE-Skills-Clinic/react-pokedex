@@ -43,11 +43,10 @@ function Header() {
           <span className="text-lg font-extrabold tracking-tight text-slate-900">
             Poke<span className="text-brand-600">dex</span>
           </span>
-        </Link> 
+        </Link>
         <SearchBar />
       </div>
     </header>
-    
   );
 }
 
