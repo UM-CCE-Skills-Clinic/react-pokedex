@@ -109,9 +109,9 @@ npm run dev
   ➜  Local:   http://localhost:5173/
 ```
 
-3. Your browser should open `http://localhost:5173` and show the **default Vite + React welcome page** with the spinning logos and a counter button.
+3. Your browser should open `http://localhost:5173`.
 
-That page is the starter. Over the next parts you will replace it entirely with the Pokedex.
+If you are following the guide from a clean starter commit, you will see the **default Vite + React welcome page** with the spinning logos and a counter button. If you are reading the completed repository, you will see the Pokedex reference implementation instead; the later parts explain how each file was built.
 
 4. Leave the dev server running in this terminal. Open a **second terminal** for the other commands in this guide.
 
@@ -145,13 +145,15 @@ tests/
 
 The `tests/` folder mirrors `src/`, so the tests for `src/pages/HomePage.jsx` live in `tests/pages/HomePage.test.jsx`.
 
-Think of them as the finish line: when all 72 pass in Part 09, your app is built correctly.
+Think of them as the finish line: when all 73 pass in Part 09, your app is built correctly.
 
 > **Do not edit the tests.** They define what your code must do. If a test fails, fix your code, not the test.
 
 ---
 
-## Step 7: Create the Project Folders
+## Step 7: Create the Project Folders (starter check)
+
+The completed repository may already contain the folders and source files described below. If they are present, leave them in place and continue to Step 8. These commands are for a clean Vite starter only.
 
 1. Create the folders your application code will live in:
 

@@ -57,6 +57,15 @@ describe('SearchPage', () => {
     expect(screen.getByText('1 Pokemon found')).toBeInTheDocument();
   });
 
+  it('does not call the API when the query is empty', async () => {
+    const get = vi.spyOn(axios, 'get');
+
+    renderSearch('');
+
+    expect(await screen.findByText('No Pokemon found')).toBeInTheDocument();
+    expect(get).not.toHaveBeenCalledWith(expect.stringContaining('/pokemon'));
+  });
+
   it('falls back to matching part of a name', async () => {
     vi.spyOn(axios, 'get').mockImplementation((url) => {
       if (url.includes('/type')) {

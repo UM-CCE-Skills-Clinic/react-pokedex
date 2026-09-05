@@ -145,7 +145,7 @@ The effect must re-run when **either** changes — clicking a different chip, or
 
 ### Paginating on the client
 
-The home page asked the API for one page at a time. Here we can't: `/type/ghost` returns **all 96** ghost Pokemon in one response, with no paging option.
+The home page asked the API for one page at a time. Here we can't: `/type/ghost` returns the whole current list of ghost Pokemon in one response, with no paging option.
 
 So we slice it ourselves:
 
@@ -157,7 +157,7 @@ const pokemon = await loadMany(members.slice(offset, offset + PAGE_SIZE));
 
 The `.map()` is needed because the API wraps each entry as `{ slot: 1, pokemon: { name, url } }` — we only want the inner object.
 
-Then `.slice()` picks the 20 for this page. Crucially we call `loadMany` on **those 20 only**, not all 96 — loading details for every ghost Pokemon just to show 20 would be slow and wasteful.
+Then `.slice()` picks the 20 for this page. Crucially we call `loadMany` on **those 20 only**, not the whole list — loading details for every ghost Pokemon just to show 20 would be slow and wasteful.
 
 ### The early `return` inside `load`
 
@@ -309,7 +309,7 @@ npm run dev
 |----------|--------|
 | Click the **Water** chip | Only water Pokemon, address `/type/water` |
 | Look at the chips | "All" is now plain white, not dark |
-| Look under the heading | "142 Pokemon of this type" |
+| Look under the heading | A count such as "142 Pokemon of this type" |
 | Click **Next** | Page 2, address `/type/water?page=2` |
 | Click a different chip | That type, back on page 1 |
 | Click **All** or **Show all →** | Home |

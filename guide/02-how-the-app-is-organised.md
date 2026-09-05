@@ -235,7 +235,7 @@ We use five endpoints from [pokeapi.co](https://pokeapi.co). No API key is neede
 }
 ```
 
-No pictures, no types. To draw a card we need the details, so showing 20 cards means 20 extra requests. That's what `loadMany` is for — it runs them all at the same time instead of one after another.
+No pictures, no types. To draw a card we need the details, so showing 20 cards means 20 extra requests. That's what `loadMany` is for — it runs them all at the same time instead of one after another. The count changes as PokeAPI adds data, so treat `1351` as an example response rather than a permanent total.
 
 **2. Details come from two places.** `/pokemon/pikachu` has the stats and picture, but the *description* and *category* live at `/pokemon-species/25`. Our `loadPokemon` helper fetches both and merges them into one tidy object.
 
