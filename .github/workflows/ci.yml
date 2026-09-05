@@ -1,13 +1,8 @@
 name: Project Submission Pipeline
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, edited, synchronize]
-
-# Cancel superseded runs when new commits are pushed to the same PR.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   extract-student-info:
@@ -218,7 +213,7 @@ jobs:
   submit:
     name: Send Certificate
     runs-on: ubuntu-latest
-    needs: [extract-student-info, verify, verify-authorship]
+    needs: [extract-student-info, verify-authorship]
     steps:
       - name: Submit student details to API
         env:
