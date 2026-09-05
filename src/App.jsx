@@ -27,3 +27,6 @@ export default function App() {
     </BrowserRouter>
   );
 }
+<Route element={<Layout />}>
+  <Route path="/" element={<HomePage />} />
+</Route>

@@ -7,7 +7,6 @@ export const BASE_URL = 'https://pokeapi.co/api/v2';
 
 // How many Pokemon we show on one page.
 export const PAGE_SIZE = 20;
-
 // ---------------------------------------------------------------------------
 // Formatting
 // ---------------------------------------------------------------------------
@@ -63,7 +62,8 @@ export function formatStatName(name) {
 // 25 -> "025"
 export function formatNumber(id) {
   return String(id).padStart(3, '0');
-}// ---------------------------------------------------------------------------
+}
+// ---------------------------------------------------------------------------
 // Loading data from PokeAPI
 // ---------------------------------------------------------------------------
 
@@ -80,7 +80,8 @@ export async function get(path) {
     // Anything else (no internet, server down) is a real problem, so pass it on.
     throw error;
   }
-}// The API answers are big and awkward, so build one tidy object out of them.
+}
+// The API answers are big and awkward, so build one tidy object out of them.
 function buildPokemon(pokemon, species) {
   // The description comes as a list of entries in many languages.
   const englishEntry = species?.flavor_text_entries.find((entry) => entry.language.name === 'en');
@@ -123,7 +124,8 @@ function buildPokemon(pokemon, species) {
     captureRate: species ? species.capture_rate : 0,
     baseHappiness: species ? species.base_happiness : 0
   };
-}// Load one Pokemon with all of its details.
+}
+// Load one Pokemon with all of its details.
 // Returns null if there is no Pokemon with that name or id.
 export async function loadPokemon(nameOrId) {
   const pokemon = await get(`/pokemon/${nameOrId}`);
@@ -145,10 +147,3 @@ export async function loadMany(entries) {
   const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
   return results.filter((pokemon) => pokemon !== null);
 }
-// Slow — waits for each one before starting the next (about 20 x 200ms = 4s)
-for (const entry of entries) {
-  results.push(await loadPokemon(entry.name));
-}
-
-// Fast — starts all 20 at once, waits for the slowest (about 400ms)
-await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
