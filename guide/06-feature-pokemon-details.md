@@ -106,10 +106,10 @@ Notice it's the **same shape** as `HomePage`: three pieces of state, one effect,
 
 Two different parts of the address:
 
-| Hook | Reads | Address | Result |
-|------|-------|---------|--------|
-| `useParams` | part of the **path** | `/pokemon/pikachu` | `{ nameOrId: 'pikachu' }` |
-| `useSearchParams` | the **query** after `?` | `/?page=3` | `'3'` |
+| Hook              | Reads                   | Address            | Result                    |
+| ----------------- | ----------------------- | ------------------ | ------------------------- |
+| `useParams`       | part of the **path**    | `/pokemon/pikachu` | `{ nameOrId: 'pikachu' }` |
+| `useSearchParams` | the **query** after `?` | `/?page=3`         | `'3'`                     |
 
 The name `nameOrId` isn't arbitrary — it must match the route we write in Step 2.
 
@@ -117,16 +117,16 @@ The name `nameOrId` isn't arbitrary — it must match the route we write in Step
 
 **This is the important part of this page.** There are two different kinds of failure, and confusing them makes for a bad app:
 
-| Situation | State | Message |
-|-----------|-------|---------|
-| Still working | `loading` is true | spinner |
-| Network broke | `error` is set | "Please try again" — retrying may help |
+| Situation       | State               | Message                                           |
+| --------------- | ------------------- | ------------------------------------------------- |
+| Still working   | `loading` is true   | spinner                                           |
+| Network broke   | `error` is set      | "Please try again" — retrying may help            |
 | No such Pokemon | `pokemon` is `null` | "Pokemon not found" — a typo; retrying won't help |
-| All good | we have a Pokemon | the detail card |
+| All good        | we have a Pokemon   | the detail card                                   |
 
 This only works because of a decision made back in Part 04: `get()` returns `null` for a 404 instead of throwing. That's what lets this page tell "doesn't exist" apart from "went wrong".
 
-**Order matters.** `loading` is checked first, because while loading `pokemon` is *also* `null` — check it the other way round and you'd flash "not found" on every page load.
+**Order matters.** `loading` is checked first, because while loading `pokemon` is _also_ `null` — check it the other way round and you'd flash "not found" on every page load.
 
 Using early returns keeps the final markup clean: deal with the exceptional cases first, and let the normal case be the last thing in the function.
 
@@ -140,7 +140,7 @@ Open `src/App.jsx` and add the import plus one route. The new lines are marked:
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
-import PokemonDetailsPage from './pages/PokemonDetailsPage';   // ← add this
+import PokemonDetailsPage from './pages/PokemonDetailsPage'; // ← add this
 import { ErrorMessage } from './components/ui';
 
 // This is the list of pages in the app, and the address each one lives at.
@@ -152,8 +152,7 @@ export default function App() {
         {/* Every page inside here is drawn inside Layout. */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />   {/* ← add this */}
-
+          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} /> {/* ← add this */}
           {/* "*" matches any address we did not list above. */}
           <Route
             path="*"
@@ -181,10 +180,10 @@ export default function App() {
 
 A segment starting with `:` matches anything and hands you the value:
 
-| Address | React Router gives you |
-|---------|------------------------|
+| Address            | React Router gives you    |
+| ------------------ | ------------------------- |
 | `/pokemon/pikachu` | `{ nameOrId: 'pikachu' }` |
-| `/pokemon/25` | `{ nameOrId: '25' }` |
+| `/pokemon/25`      | `{ nameOrId: '25' }`      |
 
 **The names must match exactly.** `path="/pokemon/:nameOrId"` pairs with `const { nameOrId } = useParams()`. Write `:pokemonName` in the route and `nameOrId` in the page, and you get `undefined`.
 
@@ -367,9 +366,9 @@ All four fact boxes look identical; only the label and value differ. Describing 
 ### Showing something only sometimes
 
 ```jsx
-{ability.isHidden && (
-  <span>Hidden</span>
-)}
+{
+  ability.isHidden && <span>Hidden</span>;
+}
 ```
 
 The `&&` trick again: if the left side is false React draws nothing.
@@ -399,7 +398,7 @@ Fixed widths for label and value; `1fr` gives the bar whatever's left. That's wh
 
 ### `bg-white/25` and `text-white/80`
 
-The `/25` is opacity. White at 25% is a frosted look that works on top of *any* type colour — which is why the badges here don't need their own colours like the grid badges did.
+The `/25` is opacity. White at 25% is a frosted look that works on top of _any_ type colour — which is why the badges here don't need their own colours like the grid badges did.
 
 ### `style={{ color }}`
 
@@ -421,14 +420,14 @@ Only at `lg:` does this split into two columns — the hero up to 420px, details
 npm run dev
 ```
 
-| Try this | Expect |
-|----------|--------|
-| Click any card | Its detail page, stat bars animating up |
-| Look at the stat bars | They grow from empty when the page opens |
-| Click **← Back to Pokedex** | Home again |
-| Visit `/pokemon/pikachu` directly | Pikachu |
-| Visit `/pokemon/25` | Also Pikachu — IDs work |
-| Visit `/pokemon/notreal` | "Pokemon not found" |
+| Try this                          | Expect                                      |
+| --------------------------------- | ------------------------------------------- |
+| Click any card                    | Its detail page, stat bars animating up     |
+| Look at the stat bars             | They grow from empty when the page opens    |
+| Click **← Back to Pokedex**       | Home again                                  |
+| Visit `/pokemon/pikachu` directly | Pikachu                                     |
+| Visit `/pokemon/25`               | Also Pikachu — IDs work                     |
+| Visit `/pokemon/notreal`          | "Pokemon not found"                         |
 | Visit `/pokemon/charizard-mega-x` | Works, but says "No description available." |
 
 That last one is worth pausing on. Mega Charizard has ID `10034`, and there is **no** `/pokemon-species/10034` — the API returns 404. Because `get()` turns that into `null` and `buildPokemon` uses `species?.` everywhere, you get the Pokemon with a fallback description instead of a crash. That exact case is covered by one of the tests.

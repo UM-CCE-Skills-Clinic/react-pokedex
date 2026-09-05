@@ -110,11 +110,11 @@ export function formatNumber(id) {
 
 Follow `"mr-mime"` through it:
 
-| Step | Result |
-|------|--------|
-| `.split('-')` | `['mr', 'mime']` |
+| Step                                    | Result           |
+| --------------------------------------- | ---------------- |
+| `.split('-')`                           | `['mr', 'mime']` |
 | `.map(...)` uppercases the first letter | `['Mr', 'Mime']` |
-| `.join(' ')` | `'Mr Mime'` |
+| `.join(' ')`                            | `'Mr Mime'`      |
 
 `formatStatName` looks in the table first — `"hp"` should be `"HP"`, not `"Hp"` — and falls back to `formatName` for anything not listed.
 
@@ -151,10 +151,10 @@ export async function get(path) {
 
 There are **two different kinds of failure**, and they deserve different treatment:
 
-| Situation | HTTP status | What we do | What the user sees |
-|-----------|-------------|------------|--------------------|
-| Someone typed `/pokemon/notreal` | 404 | return `null` | "Pokemon not found" |
-| No internet, or PokeAPI is down | anything else | `throw` | "Please try again" |
+| Situation                        | HTTP status   | What we do    | What the user sees  |
+| -------------------------------- | ------------- | ------------- | ------------------- |
+| Someone typed `/pokemon/notreal` | 404           | return `null` | "Pokemon not found" |
+| No internet, or PokeAPI is down  | anything else | `throw`       | "Please try again"  |
 
 A typo isn't a crash — it's an ordinary thing users do. By returning `null` for 404s, pages can tell the two apart with a simple `if (result === null)`.
 
@@ -215,19 +215,19 @@ function buildPokemon(pokemon, species) {
 
 ### Before and after
 
-| The API gives us | We turn it into |
-|------------------|-----------------|
-| `types: [{ type: { name: 'electric' } }]` | `types: ['electric']` |
-| `height: 4` (decimetres) | `height: 0.4` (metres) |
-| `weight: 60` (hectograms) | `weight: 6` (kilograms) |
-| `name: 'mr-mime'` | `displayName: 'Mr Mime'` |
-| description buried in 200 languages | `description: 'It raises its tail...'` |
+| The API gives us                          | We turn it into                        |
+| ----------------------------------------- | -------------------------------------- |
+| `types: [{ type: { name: 'electric' } }]` | `types: ['electric']`                  |
+| `height: 4` (decimetres)                  | `height: 0.4` (metres)                 |
+| `weight: 60` (hectograms)                 | `weight: 6` (kilograms)                |
+| `name: 'mr-mime'`                         | `displayName: 'Mr Mime'`               |
+| description buried in 200 languages       | `description: 'It raises its tail...'` |
 
 Now a component can just write `{pokemon.displayName}` instead of digging through nested objects.
 
 ### Three details worth understanding
 
-**`species?.flavor_text_entries`** — the `?.` is *optional chaining*. If `species` is `null`, the whole expression is `undefined` instead of crashing. We need this because some Pokemon have no species entry (more on that in the next step).
+**`species?.flavor_text_entries`** — the `?.` is _optional chaining_. If `species` is `null`, the whole expression is `undefined` instead of crashing. We need this because some Pokemon have no species entry (more on that in the next step).
 
 **`.replace(/[\f\n\r]/g, ' ')`** — the descriptions come straight from the original Game Boy games and still contain the line breaks that fit the old text boxes. This swaps them for spaces.
 
@@ -272,7 +272,7 @@ The stats and picture come from `/pokemon/pikachu`; the description and category
 
 ### The `charizard-mega-x` case
 
-Special forms like Mega Charizard have IDs like `10034`. There *is* a Pokemon at `/pokemon/charizard-mega-x`, but there is **no** `/pokemon-species/10034` — that returns 404.
+Special forms like Mega Charizard have IDs like `10034`. There _is_ a Pokemon at `/pokemon/charizard-mega-x`, but there is **no** `/pokemon-species/10034` — that returns 404.
 
 Because `get` turns a 404 into `null` rather than throwing, and `buildPokemon` uses `species?.` and `species ? ... : ...` everywhere, the app handles this gracefully: you get the Pokemon with "No description available." instead of a crash. This exact case is covered by one of the tests.
 

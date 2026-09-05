@@ -18,19 +18,19 @@ A hands-on tutorial for building a **Pokedex single-page application** with Reac
 >
 > This is the heart of the project. The guide walks you through building the **entire** app from a fresh Vite starter to a finished, tested application — in order, with nothing skipped.
 
-| Part | Topic | Link |
-|------|-------|------|
-| 00 | Introduction | [Read](guide/00-introduction.md) |
-| 01 | Project Setup | [Read](guide/01-project-setup.md) |
-| 02 | How the App Is Organised | [Read](guide/02-how-the-app-is-organised.md) |
-| 03 | Styling with Tailwind | [Read](guide/03-styling-with-tailwind.md) |
-| 04 | Shared Helpers | [Read](guide/04-shared-helpers.md) |
-| 05 | Feature 1: Browse the Pokedex | [Read](guide/05-feature-browse-pokedex.md) |
-| 06 | Feature 2: Pokemon Details | [Read](guide/06-feature-pokemon-details.md) |
-| 07 | Feature 3: Search | [Read](guide/07-feature-search.md) |
-| 08 | Feature 4: Filter by Type | [Read](guide/08-feature-filter-by-type.md) |
-| 09 | Testing | [Read](guide/09-testing.md) |
-| 10 | Running the App & Pull Request | [Read](guide/10-running-and-pull-request.md) |
+| Part | Topic                          | Link                                         |
+| ---- | ------------------------------ | -------------------------------------------- |
+| 00   | Introduction                   | [Read](guide/00-introduction.md)             |
+| 01   | Project Setup                  | [Read](guide/01-project-setup.md)            |
+| 02   | How the App Is Organised       | [Read](guide/02-how-the-app-is-organised.md) |
+| 03   | Styling with Tailwind          | [Read](guide/03-styling-with-tailwind.md)    |
+| 04   | Shared Helpers                 | [Read](guide/04-shared-helpers.md)           |
+| 05   | Feature 1: Browse the Pokedex  | [Read](guide/05-feature-browse-pokedex.md)   |
+| 06   | Feature 2: Pokemon Details     | [Read](guide/06-feature-pokemon-details.md)  |
+| 07   | Feature 3: Search              | [Read](guide/07-feature-search.md)           |
+| 08   | Feature 4: Filter by Type      | [Read](guide/08-feature-filter-by-type.md)   |
+| 09   | Testing                        | [Read](guide/09-testing.md)                  |
+| 10   | Running the App & Pull Request | [Read](guide/10-running-and-pull-request.md) |
 
 > ℹ️ **You write every file in `src/` yourself.** The starter gives you the config files and the complete test suite — the helpers, layout, components, pages and routes are yours to build across Parts 01–10.
 
@@ -49,15 +49,15 @@ Parts 05–08 each build **one complete feature** in the same order — **Page �
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **React 19** | Builds the interface out of small, reusable components |
-| **Vite** | Dev server and build tool — fast, with instant reloads |
-| **React Router** | Shows a different page for each address in the browser |
-| **Tailwind CSS v4** | Utility-first styling, configured in CSS — no `tailwind.config.js` |
-| **Axios** | HTTP client |
-| **PokeAPI** | Pokemon data source |
-| **Vitest + React Testing Library** | Testing the helpers, components and pages |
+| Technology                         | Purpose                                                            |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| **React 19**                       | Builds the interface out of small, reusable components             |
+| **Vite**                           | Dev server and build tool — fast, with instant reloads             |
+| **React Router**                   | Shows a different page for each address in the browser             |
+| **Tailwind CSS v4**                | Utility-first styling, configured in CSS — no `tailwind.config.js` |
+| **Axios**                          | HTTP client                                                        |
+| **PokeAPI**                        | Pokemon data source                                                |
+| **Vitest + React Testing Library** | Testing the helpers, components and pages                          |
 
 ---
 
@@ -72,12 +72,14 @@ Parts 05–08 each build **one complete feature** in the same order — **Page �
 ### Set up your workspace
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/react-pokedex.git
    cd react-pokedex
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -90,19 +92,19 @@ Parts 05–08 each build **one complete feature** in the same order — **Page �
 
 ## 📜 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start the dev server with hot reload |
-| `npm run build` | Build the site into `dist/` |
-| `npm run preview` | Preview the built site |
-| `npm test` | Run the tests and watch for changes |
-| `npm run test:run` | Run the tests once |
-| `npm run test:ci` | Run the tests once with a coverage report |
-| `npm run lint` | Check the code with ESLint |
-| `npm run lint:fix` | Fix linting errors automatically |
-| `npm run format` | Format the code with Prettier |
-| `npm run format:check` | Check code formatting |
-| `npm run ci` | Format check → lint → test → build |
+| Command                | Description                               |
+| ---------------------- | ----------------------------------------- |
+| `npm run dev`          | Start the dev server with hot reload      |
+| `npm run build`        | Build the site into `dist/`               |
+| `npm run preview`      | Preview the built site                    |
+| `npm test`             | Run the tests and watch for changes       |
+| `npm run test:run`     | Run the tests once                        |
+| `npm run test:ci`      | Run the tests once with a coverage report |
+| `npm run lint`         | Check the code with ESLint                |
+| `npm run lint:fix`     | Fix linting errors automatically          |
+| `npm run format`       | Format the code with Prettier             |
+| `npm run format:check` | Check code formatting                     |
+| `npm run ci`           | Format check → lint → test → build        |
 
 ---
 
@@ -146,12 +148,12 @@ guide/                          the step-by-step tutorial
 
 ### Pages
 
-| Address | Page | Example |
-|---------|------|---------|
-| `/` | HomePage | `/?page=3` |
-| `/search` | SearchPage | `/search?q=char` |
-| `/type/:type` | TypePage | `/type/water?page=2` |
-| `/pokemon/:nameOrId` | PokemonDetailsPage | `/pokemon/pikachu` |
+| Address              | Page               | Example              |
+| -------------------- | ------------------ | -------------------- |
+| `/`                  | HomePage           | `/?page=3`           |
+| `/search`            | SearchPage         | `/search?q=char`     |
+| `/type/:type`        | TypePage           | `/type/water?page=2` |
+| `/pokemon/:nameOrId` | PokemonDetailsPage | `/pokemon/pikachu`   |
 
 The page number and search text live in the address bar, so the back button and shared links both work.
 
@@ -197,13 +199,13 @@ Read one page and you can read them all. There are no custom hooks and no data-f
 
 Only the things more than one page needs, so they are not copy-pasted four times:
 
-| Helper | What it does |
-|--------|--------------|
-| `get(path)` | One request to PokeAPI. Returns `null` on a 404 |
-| `loadPokemon(nameOrId)` | One Pokemon, tidied up. `null` if it does not exist |
-| `loadMany(entries)` | Loads details for a list of Pokemon at once |
-| `getTypeColor(type)` | The colour for a type, e.g. fire is orange |
-| `formatName`, `formatNumber` | `"mr-mime"` → `"Mr Mime"`, `25` → `"025"` |
+| Helper                       | What it does                                        |
+| ---------------------------- | --------------------------------------------------- |
+| `get(path)`                  | One request to PokeAPI. Returns `null` on a 404     |
+| `loadPokemon(nameOrId)`      | One Pokemon, tidied up. `null` if it does not exist |
+| `loadMany(entries)`          | Loads details for a list of Pokemon at once         |
+| `getTypeColor(type)`         | The colour for a type, e.g. fire is orange          |
+| `formatName`, `formatNumber` | `"mr-mime"` → `"Mr Mime"`, `25` → `"025"`           |
 
 ## 🧪 Testing
 
@@ -227,15 +229,15 @@ Testing Library checks what a person would see on screen — a heading, a link, 
 
 The tests cover:
 
-| File | What its tests check |
-|------|----------------------|
-| `utils` | Formatting, 404s becoming `null`, and building the tidy Pokemon object |
-| `ui` | Pagination links, and the loading / empty / error messages |
-| `PokemonGrid` | Cards show the name, number, types and picture, and link correctly |
-| `PokemonDetail` | Stats, abilities, hidden badge, height and weight |
-| `Layout` | Searching takes you to the search page |
-| Pages | Loading first, then results — plus "not found" and error states |
-| `App` | Each address shows the right page |
+| File            | What its tests check                                                   |
+| --------------- | ---------------------------------------------------------------------- |
+| `utils`         | Formatting, 404s becoming `null`, and building the tidy Pokemon object |
+| `ui`            | Pagination links, and the loading / empty / error messages             |
+| `PokemonGrid`   | Cards show the name, number, types and picture, and link correctly     |
+| `PokemonDetail` | Stats, abilities, hidden badge, height and weight                      |
+| `Layout`        | Searching takes you to the search page                                 |
+| Pages           | Loading first, then results — plus "not found" and error states        |
+| `App`           | Each address shows the right page                                      |
 
 ---
 
@@ -243,12 +245,12 @@ The tests cover:
 
 `.github/workflows/ci.yml` runs on every pull request and has four jobs:
 
-| Job | What it does |
-|-----|--------------|
-| **Extract Student Info** | Reads `First Name`, `Last Name`, `Program` and `UMindanao Email` from the PR description, checks all four are present, validates the email domain, and checks the PR title |
-| **Verify PR Author Wrote The Code** | Compares every commit's GitHub account against whoever opened the PR |
-| **Format, Lint, Test & Build** | `format:check` → `lint` → `test:ci` → `build`, then confirms `dist/` really contains the HTML, JS and CSS |
-| **Submit Student Info** | Runs only after all three pass, and POSTs the details to the submission API |
+| Job                                 | What it does                                                                                                                                                               |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Extract Student Info**            | Reads `First Name`, `Last Name`, `Program` and `UMindanao Email` from the PR description, checks all four are present, validates the email domain, and checks the PR title |
+| **Verify PR Author Wrote The Code** | Compares every commit's GitHub account against whoever opened the PR                                                                                                       |
+| **Format, Lint, Test & Build**      | `format:check` → `lint` → `test:ci` → `build`, then confirms `dist/` really contains the HTML, JS and CSS                                                                  |
+| **Submit Student Info**             | Runs only after all three pass, and POSTs the details to the submission API                                                                                                |
 
 Run the same gates locally before opening a PR:
 

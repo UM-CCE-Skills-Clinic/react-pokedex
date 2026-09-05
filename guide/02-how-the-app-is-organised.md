@@ -1,6 +1,6 @@
 # 02 - How the App Is Organised
 
-Before we write code, let's understand how the pieces fit together. This explains *why* the files are arranged the way they are.
+Before we write code, let's understand how the pieces fit together. This explains _why_ the files are arranged the way they are.
 
 ---
 
@@ -132,11 +132,11 @@ While steps 4–6 are happening, `loading` is `true`, so the page shows a spinne
 
 Every page in this app can be in one of three situations, and each one shows something different:
 
-| State | What the user sees |
-|-------|--------------------|
-| `loading` is true | A spinner — "Loading Pokemon..." |
-| `error` is set | A friendly error message with a link home |
-| we have data | The actual content (or "No Pokemon found" if the list is empty) |
+| State             | What the user sees                                              |
+| ----------------- | --------------------------------------------------------------- |
+| `loading` is true | A spinner — "Loading Pokemon..."                                |
+| `error` is set    | A friendly error message with a link home                       |
+| we have data      | The actual content (or "No Pokemon found" if the list is empty) |
 
 Handling all three every time is what makes the app feel finished instead of broken.
 
@@ -178,12 +178,12 @@ There are two ways to build an app like this.
 
 **Feature by feature** is what we'll do instead. Each part builds one complete, working slice of the app:
 
-| Part | Feature | You can see |
-|------|---------|-------------|
-| 05 | Browse the Pokedex | A grid of Pokemon with pagination |
-| 06 | Pokemon details | Click a card, get its full page |
-| 07 | Search | Find a Pokemon by name or ID |
-| 08 | Filter by type | The coloured chips work |
+| Part | Feature            | You can see                       |
+| ---- | ------------------ | --------------------------------- |
+| 05   | Browse the Pokedex | A grid of Pokemon with pagination |
+| 06   | Pokemon details    | Click a card, get its full page   |
+| 07   | Search             | Find a Pokemon by name or ID      |
+| 08   | Filter by type     | The coloured chips work           |
 
 Within each feature, always the same three steps:
 
@@ -197,7 +197,7 @@ Then you run the app and **see the feature working** before starting the next on
 
 ### Why Page first?
 
-Because the page is the thing you're actually trying to build. Starting there means you decide what you need *before* writing it — and the components you then write exist to serve a real requirement, not a guess.
+Because the page is the thing you're actually trying to build. Starting there means you decide what you need _before_ writing it — and the components you then write exist to serve a real requirement, not a guess.
 
 It also means every part ends with something you can look at. If Feature 3 breaks, you know the problem is in Feature 3, because Features 1 and 2 were working when you left them.
 
@@ -213,13 +213,13 @@ It also means every part ends with something you can look at. If Feature 3 break
 
 We use five endpoints from [pokeapi.co](https://pokeapi.co). No API key is needed.
 
-| Endpoint | Description | Example |
-|----------|-------------|---------|
-| `/pokemon?limit=&offset=` | One page of names | `/pokemon?limit=20&offset=0` |
-| `/pokemon/{name}` | Full details for one Pokemon | `/pokemon/pikachu` |
-| `/pokemon-species/{id}` | Description and category | `/pokemon-species/25` |
-| `/type` | The list of all types | `/type` |
-| `/type/{name}` | Every Pokemon of one type | `/type/electric` |
+| Endpoint                  | Description                  | Example                      |
+| ------------------------- | ---------------------------- | ---------------------------- |
+| `/pokemon?limit=&offset=` | One page of names            | `/pokemon?limit=20&offset=0` |
+| `/pokemon/{name}`         | Full details for one Pokemon | `/pokemon/pikachu`           |
+| `/pokemon-species/{id}`   | Description and category     | `/pokemon-species/25`        |
+| `/type`                   | The list of all types        | `/type`                      |
+| `/type/{name}`            | Every Pokemon of one type    | `/type/electric`             |
 
 ### Two things to know about the list endpoint
 
@@ -230,14 +230,14 @@ We use five endpoints from [pokeapi.co](https://pokeapi.co). No API key is neede
   "count": 1351,
   "results": [
     { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" },
-    { "name": "ivysaur",   "url": "https://pokeapi.co/api/v2/pokemon/2/" }
+    { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }
   ]
 }
 ```
 
 No pictures, no types. To draw a card we need the details, so showing 20 cards means 20 extra requests. That's what `loadMany` is for — it runs them all at the same time instead of one after another.
 
-**2. Details come from two places.** `/pokemon/pikachu` has the stats and picture, but the *description* and *category* live at `/pokemon-species/25`. Our `loadPokemon` helper fetches both and merges them into one tidy object.
+**2. Details come from two places.** `/pokemon/pikachu` has the stats and picture, but the _description_ and _category_ live at `/pokemon-species/25`. Our `loadPokemon` helper fetches both and merges them into one tidy object.
 
 ### What one Pokemon looks like from the API
 
@@ -257,7 +257,7 @@ No pictures, no types. To draw a card we need the details, so showing 20 cards m
 }
 ```
 
-Notice how awkward that is — `types[0].type.name` just to get `"electric"`, and height in *decimetres*. Part 04 flattens all of it into an object our components can use directly.
+Notice how awkward that is — `types[0].type.name` just to get `"electric"`, and height in _decimetres_. Part 04 flattens all of it into an object our components can use directly.
 
 ---
 

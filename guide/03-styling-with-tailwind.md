@@ -12,14 +12,14 @@ Tailwind gives you small single-purpose class names that you combine in your mar
 <div className="flex items-center gap-4 rounded-xl bg-white p-4">
 ```
 
-| Class | What it does |
-|-------|--------------|
-| `flex` | `display: flex` |
+| Class          | What it does          |
+| -------------- | --------------------- |
+| `flex`         | `display: flex`       |
 | `items-center` | `align-items: center` |
-| `gap-4` | `gap: 1rem` |
-| `rounded-xl` | rounded corners |
-| `bg-white` | white background |
-| `p-4` | padding on all sides |
+| `gap-4`        | `gap: 1rem`           |
+| `rounded-xl`   | rounded corners       |
+| `bg-white`     | white background      |
+| `p-4`          | padding on all sides  |
 
 > **`className`, not `class`:** In JSX you write `className` because `class` is a reserved word in JavaScript. This trips up nearly everyone once.
 
@@ -35,7 +35,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss()]
   // ...
 });
 ```
@@ -87,14 +87,14 @@ That `tailwindcss()` plugin scans your files for class names and generates exact
 
 **`@theme { ... }`** — your design tokens. Every variable here becomes usable class names:
 
-| You write | You get to use |
-|-----------|----------------|
+| You write           | You get to use                                            |
+| ------------------- | --------------------------------------------------------- |
 | `--color-brand-600` | `bg-brand-600`, `text-brand-600`, `border-brand-600`, ... |
-| `--font-sans` | applied to the whole page by default |
+| `--font-sans`       | applied to the whole page by default                      |
 
 We define a red "brand" colour because a Pokeball is red. Tailwind's built-in colours (`slate`, `white`, and so on) still work everywhere.
 
-**`.stat-bar`** — one small hand-written animation, used by the detail page in Feature 2. Each stat bar has its width set inline (say `width: 35%`), and this keyframe animates it *from* `0` up to whatever that width is, so the bars fill up when the page opens. Pure CSS — no JavaScript needed.
+**`.stat-bar`** — one small hand-written animation, used by the detail page in Feature 2. Each stat bar has its width set inline (say `width: 35%`), and this keyframe animates it _from_ `0` up to whatever that width is, so the bars fill up when the page opens. Pure CSS — no JavaScript needed.
 
 ---
 
@@ -175,20 +175,20 @@ npm run dev
 
 You don't need to memorise these — just recognise the pattern when you meet them:
 
-| Pattern | Meaning | Example |
-|---------|---------|---------|
-| `p-4`, `px-4`, `mt-2` | padding / margin | `px-4` = padding left and right |
-| `flex`, `grid` | layout mode | `flex flex-col` = stack vertically |
-| `gap-3` | space between children | |
-| `text-sm`, `font-bold` | text size and weight | |
-| `rounded-xl` | corner rounding | |
-| `sm:`, `lg:` | only on bigger screens | `sm:grid-cols-3` |
-| `hover:` | only while hovering | `hover:bg-slate-100` |
+| Pattern                | Meaning                | Example                            |
+| ---------------------- | ---------------------- | ---------------------------------- |
+| `p-4`, `px-4`, `mt-2`  | padding / margin       | `px-4` = padding left and right    |
+| `flex`, `grid`         | layout mode            | `flex flex-col` = stack vertically |
+| `gap-3`                | space between children |                                    |
+| `text-sm`, `font-bold` | text size and weight   |                                    |
+| `rounded-xl`           | corner rounding        |                                    |
+| `sm:`, `lg:`           | only on bigger screens | `sm:grid-cols-3`                   |
+| `hover:`               | only while hovering    | `hover:bg-slate-100`               |
 
 The responsive prefixes are how the grid goes from 2 columns on a phone to 5 on a wide screen:
 
 ```jsx
-className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5';
 ```
 
 ---
