@@ -27,7 +27,7 @@ export default function HomePage() {
       try {
         const offset = (page - 1) * PAGE_SIZE;
 
-        // This list only has names, so load the details for each one.
+        // This list only has names, so load the detailsgit add . for each one.
         const list = await get(`/pokemon?limit=${PAGE_SIZE}&offset=${offset}`);
         const pokemon = await loadMany(list.results);
 
