@@ -14,7 +14,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
           <Route path="/search" element={<SearchPage />} />     {/* ← add this */}
-
+          <Route path="/type/:type" element={<TypePage />} />
+          
           {/* "*" matches any address we did not list above. */}
           <Route
             path="*"
