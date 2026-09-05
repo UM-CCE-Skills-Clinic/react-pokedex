@@ -1,13 +1,29 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layout/Layout';
+import HomePage from './pages/HomePage';
+import { ErrorMessage } from './components/ui';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+// This is the list of pages in the app, and the address each one lives at.
+export default function App() {
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        {/* Every page inside here is drawn inside Layout. */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
 
-export default App
+          {/* "*" matches any address we did not list above. */}
+          <Route
+            path="*"
+            element={
+              <ErrorMessage
+                title="Page not found"
+                text="The page you are looking for does not exist."
+              />
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
