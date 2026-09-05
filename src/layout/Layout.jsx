@@ -48,7 +48,6 @@ function Header() {
         </Link>
 
         <SearchBar />
-
       </div>
     </header>
   );
