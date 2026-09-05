@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/Homepage';
 import PokemonDetailsPage from './pages/PokemonDetailsPage';
 import SearchPage from './pages/SearchPage';
 import TypePage from './pages/TypePage';
