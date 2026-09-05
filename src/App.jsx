@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
+import PokemonDetailsPage from './pages/PokemonDetailsPage';   // ← add this
+
 import { ErrorMessage } from './components/ui';
 
 // This is the list of pages in the app, and the address each one lives at.
