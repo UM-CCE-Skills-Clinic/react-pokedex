@@ -130,7 +130,6 @@ function buildPokemon(pokemon, species) {
   };
 }
 
-
 // Load one Pokemon with all of its details.
 // Returns null if there is no Pokemon with that name or id.
 export async function loadPokemon(nameOrId) {

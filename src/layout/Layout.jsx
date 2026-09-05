@@ -1,8 +1,5 @@
-import { Link, Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-// The frame that every page is drawn inside: header, then the page, then footer.
-// React Router puts the current page where <Outlet /> is.
 
 function Header() {
   return (
@@ -16,8 +13,7 @@ function Header() {
             Poke<span className="text-brand-600">dex</span>
           </span>
         </Link>
-      <SearchBar />
-
+        <SearchBar />
       </div>
     </header>
   );
