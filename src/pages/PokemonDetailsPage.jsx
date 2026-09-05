@@ -69,5 +69,5 @@ export default function PokemonDetailsPage() {
 
       <PokemonDetail pokemon={pokemon} />
     </div>
-  );
+  ); 
 }

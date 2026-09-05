@@ -12,7 +12,6 @@ export function Loading({ text = 'Loading Pokemon...' }) {
   );
 }
 
-
 // Shown when a search or a filter has no results.
 export function Empty({ text = "We couldn't find any Pokemon matching that." }) {
   return (
@@ -84,4 +83,3 @@ export function Pagination({ page, totalPages, makeLink }) {
     </div>
   );
 }
-

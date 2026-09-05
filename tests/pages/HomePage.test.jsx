@@ -66,7 +66,6 @@ describe('HomePage', () => {
     expect(await screen.findByText('Bulbasaur')).toBeInTheDocument();
     expect(screen.queryByText('Loading Pokemon...')).not.toBeInTheDocument();
   });
-
   it('asks the API for the page in the address bar', async () => {
     mockApi();
     renderHome('/?page=3');

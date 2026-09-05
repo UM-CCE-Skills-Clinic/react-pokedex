@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import PokemonDetailsPage from '../../src/pages/PokemonDetailsPage';
@@ -40,6 +40,7 @@ function renderDetails(name = 'pikachu') {
 }
 
 afterEach(() => {
+  cleanup();
   vi.restoreAllMocks();
 });
 
