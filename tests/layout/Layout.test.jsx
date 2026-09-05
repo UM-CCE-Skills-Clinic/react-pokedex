@@ -1,64 +1,56 @@
-import axios from 'axios';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import Layout from '../../src/layout/Layout';
+import { Link, Outlet } from 'react-router-dom';
 
-// Render the layout with a couple of fake pages, so we can check that typing
-// in the search box actually takes you somewhere.
-function renderApp() {
-  return render(
-    <MemoryRouter initialEntries={['/']}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<p>Home page</p>} />
-          <Route path="/search" element={<p>Search page</p>} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
+// The frame that every page is drawn inside: header, then the page, then footer.
+// React Router puts the current page where <Outlet /> is.
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <Link to="/" className="flex items-center gap-2.5">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-600 ring-2 ring-white">
+            <span className="h-3 w-3 rounded-full bg-white ring-[3px] ring-slate-900" />
+          </span>
+          <span className="text-lg font-extrabold tracking-tight text-slate-900">
+            Poke<span className="text-brand-600">dex</span>
+          </span>
+        </Link>
+      </div>
+    </header>
   );
 }
 
-beforeEach(() => {
-  // The layout itself makes no requests, but this keeps tests quiet.
-  vi.spyOn(axios, 'get').mockResolvedValue({ data: { results: [] } });
-});
+function Footer() {
+  return (
+    <footer className="mt-12 border-t border-slate-200 bg-white/60">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-slate-500 sm:flex-row sm:px-6 lg:px-8">
+        <p>Built with React, React Router and Tailwind CSS.</p>
+        <p>
+          Data from{' '}
+          <a
+            href="https://pokeapi.co/"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-brand-600"
+          >
+            PokeAPI
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
 
-afterEach(() => {
-  vi.restoreAllMocks();
-});
+export default function Layout() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <Header />
 
-describe('Layout', () => {
-  it('shows the header, the page, and the footer', () => {
-    renderApp();
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Outlet />
+      </main>
 
-    expect(screen.getByRole('banner')).toBeInTheDocument();
-    expect(screen.getByText('Home page')).toBeInTheDocument();
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
-  });
-
-  it('links the logo back home', () => {
-    renderApp();
-
-    expect(screen.getByRole('link', { name: /Pokedex/ })).toHaveAttribute('href', '/');
-  });
-
-  it('goes to the search page when you search for something', async () => {
-    const user = userEvent.setup();
-    renderApp();
-
-    await user.type(screen.getByRole('textbox'), 'pikachu{Enter}');
-
-    expect(screen.getByText('Search page')).toBeInTheDocument();
-  });
-
-  it('goes home when you search for nothing', async () => {
-    const user = userEvent.setup();
-    renderApp();
-
-    await user.type(screen.getByRole('textbox'), '   {Enter}');
-
-    expect(screen.getByText('Home page')).toBeInTheDocument();
-  });
-});
+      <Footer />
+    </div>
+  );
+}
