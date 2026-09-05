@@ -44,7 +44,7 @@ function Header() {
             Poke<span className="text-brand-600">dex</span>
           </span>
         </Link>
-    <Link to="/" className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center gap-2.5">
           {/* ... the logo, unchanged ... */}
         </Link>
 
