@@ -152,4 +152,3 @@ export async function loadMany(entries) {
   const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
   return results.filter((pokemon) => pokemon !== null);
 }
-
