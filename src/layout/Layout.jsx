@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // The frame that every page is drawn inside: header, then the page, then footer.
 // React Router puts the current page where <Outlet /> is.
