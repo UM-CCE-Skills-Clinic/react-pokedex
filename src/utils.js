@@ -90,19 +90,7 @@ export async function get(path) {
 // ---------------------------------------------------------------------------
 
 // Ask the API for one thing. Returns null if it does not exist, because a
-// missing Pokemon is a normal thing to happen, not a crash.
-export async function get(path) {
-  try {
-    const response = await axios.get(`${BASE_URL}${path}`);
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      return null;
-    }
-    // Anything else (no internet, server down) is a real problem, so pass it on.
-    throw error;
-  }
-}
+// missing Pokemon is a normal thing to happen, not a crash
 
 // The API answers are big and awkward, so build one tidy object out of them.
 function buildPokemon(pokemon, species) {
