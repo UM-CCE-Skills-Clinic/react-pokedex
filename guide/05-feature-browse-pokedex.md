@@ -15,7 +15,7 @@ A working Pokedex home page:
 - a sticky header with the Pokeball logo
 - a row of coloured type chips
 - a grid of 20 Pokemon cards, each with its picture, number, name and types
-- Previous / Next buttons that page through all 1351 Pokemon
+- Previous / Next buttons that page through all Pokemon returned by PokeAPI
 - a spinner while it loads
 
 Clicking a card or a chip will say "Page not found" — those are Features 2 and 4.
@@ -166,7 +166,7 @@ The offset maths:
 | 1 | `(1-1) × 20` | 0 | 1–20 |
 | 2 | `(2-1) × 20` | 20 | 21–40 |
 
-And `Math.ceil(1351 / 20)` is 68 — rounded **up**, because the last 11 Pokemon still need a page.
+For example, if PokeAPI reports 1351 Pokemon, `Math.ceil(1351 / 20)` is 68 — rounded **up**, because the last 11 Pokemon still need a page. The API count can change over time.
 
 ### The `ignore` flag
 

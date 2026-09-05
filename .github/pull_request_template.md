@@ -31,6 +31,6 @@ UMindanao Email:
 
 - [ ] `npm run format:check` passes
 - [ ] `npm run lint` passes
-- [ ] `npm run test:ci` passes (72 tests)
+- [ ] `npm run test:ci` passes (73 tests)
 - [ ] `npm run build` succeeds
 - [ ] Every commit in this PR was authored by me

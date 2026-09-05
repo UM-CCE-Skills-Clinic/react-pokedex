@@ -25,10 +25,10 @@ You should see:
  ✓ tests/App.test.jsx (4 tests)
 
  Test Files  10 passed (10)
-      Tests  72 passed (72)
+      Tests  73 passed (73)
 ```
 
-**72 tests passing.** If something is red, skip to [Step 8](#step-8-if-something-fails) — then come back and read the rest, because understanding these tests is what lets you write your own later.
+**73 tests passing.** If something is red, skip to [Step 8](#step-8-if-something-fails) — then come back and read the rest, because understanding these tests is what lets you write your own later.
 
 ---
 

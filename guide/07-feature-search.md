@@ -51,6 +51,15 @@ export default function SearchPage() {
         // The API only understands lowercase names, so tidy the query first.
         const search = query.trim().toLowerCase();
 
+        // Direct visits to /search without a query show the empty state.
+        if (search === '') {
+          if (!ignore) {
+            setData({ pokemon: [], totalCount: 0 });
+            setLoading(false);
+          }
+          return;
+        }
+
         // Try an exact match, so "25" and "Pikachu" both jump to Pikachu.
         const exactMatch = await loadPokemon(search);
 
@@ -141,7 +150,7 @@ PokeAPI has **no search endpoint**, so we build one:
      found?  → show that one Pokemon, done.
      404?    → keep going.
 
-2. Fetch all 1351 names, filter for ones containing the text.
+2. Fetch the current list of names, filter for ones containing the text.
 ```
 
 Step 1 is what makes `pikachu` or `25` jump straight to the right Pokemon instead of returning a list of near-misses.

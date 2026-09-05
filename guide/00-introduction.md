@@ -30,7 +30,7 @@ A Pokedex single-page app that:
 
 Before starting, make sure you have:
 
-1. **Node.js** (version 20 or higher) - [Download here](https://nodejs.org/)
+1. **Node.js** (version 22.12 or higher) - [Download here](https://nodejs.org/)
 2. **Git** - [Download here](https://git-scm.com/)
 3. **A GitHub account** - [Sign up here](https://github.com/)
 4. **A code editor** - We recommend [VS Code](https://code.visualstudio.com/)
@@ -170,7 +170,7 @@ When committing your work, follow the **Conventional Commits** format:
 <type>: <description>
 ```
 
-> **Where does my student info go?** Not in the commit — it goes in your **Pull Request description** at the very end (Part 13). The submission pipeline reads four fields from the PR body: `First Name`, `Last Name`, `Program`, and `UMindanao Email` (which must be a `@umindanao.edu.ph` address). The repo's PR template already lays these out for you.
+> **Where does my student info go?** Not in the commit — it goes in your **Pull Request description** at the very end (Part 10, Step 7). The submission pipeline reads four fields from the PR body: `First Name`, `Last Name`, `Program`, and `UMindanao Email` (which must be a `@umindanao.edu.ph` address). The repo's PR template already lays these out for you.
 
 ### Commit Types
 

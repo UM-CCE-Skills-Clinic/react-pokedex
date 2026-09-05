@@ -28,7 +28,7 @@ Open `http://localhost:5173`.
 
 ### Feature 1 — Browse the Pokedex
 
-The home page shows the first 20 Pokemon. Use **Previous / Next** to page through all 68 pages.
+The home page shows the first 20 Pokemon. Use **Previous / Next** to page through the pages reported by PokeAPI.
 
 Watch the address change to `/?page=2`, then press the browser's **Back** button — you return to page 1. That works because the page number lives in the address, not in component state.
 
@@ -78,11 +78,7 @@ The dev server is optimised for editing. Let's see what actually ships:
 npm run build
 ```
 
-```
-dist/index.html                   1.18 kB │ gzip:  0.62 kB
-dist/assets/index-CZinCzap.css   21.84 kB │ gzip:  4.92 kB
-dist/assets/index-C0EdnNsr.js   297.82 kB │ gzip: 96.91 kB
-```
+The asset names and sizes vary with source changes and dependency versions. A successful build should contain `dist/index.html`, at least one JavaScript file in `dist/assets/`, and at least one CSS file in `dist/assets/`.
 
 Then preview those exact files:
 
@@ -114,7 +110,7 @@ npm run ci
 format:check  ✓
 lint          ✓
 Test Files    10 passed (10)
-Tests         72 passed (72)
+Tests         73 passed (73)
 built in 205ms
 ```
 
