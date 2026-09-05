@@ -82,4 +82,4 @@ export function Pagination({ page, totalPages, makeLink }) {
       )}
     </div>
   );
-}   
+}
