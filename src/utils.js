@@ -82,7 +82,7 @@ export async function get(path) {
     // Anything else (no internet, server down) is a real problem, so pass it on.
     throw error;
   }
-}// The API answers are big and awkward, so build one tidy object out of them.
+} // The API answers are big and awkward, so build one tidy object out of them.
 function buildPokemon(pokemon, species) {
   // The description comes as a list of entries in many languages.
   const englishEntry = species?.flavor_text_entries.find((entry) => entry.language.name === 'en');
