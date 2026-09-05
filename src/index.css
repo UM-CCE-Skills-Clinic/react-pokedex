@@ -6,21 +6,21 @@
  *   --color-brand-600  ->  bg-brand-600, text-brand-600, ...
  */
 @theme {
-    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-    --color-brand-50: #fff1f2;
-    --color-brand-100: #ffe0e3;
-    --color-brand-400: #f4566b;
-    --color-brand-600: #cc163a;
+  --color-brand-50: #fff1f2;
+  --color-brand-100: #ffe0e3;
+  --color-brand-400: #f4566b;
+  --color-brand-600: #cc163a;
 }
 
 /* Make the stat bars grow from empty when the details page opens. */
 .stat-bar {
-    animation: grow 0.8s ease-out;
+  animation: grow 0.8s ease-out;
 }
 
 @keyframes grow {
-    from {
-        width: 0;
-    }
+  from {
+    width: 0;
+  }
 }
