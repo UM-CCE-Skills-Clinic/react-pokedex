@@ -1,10 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import HomePage from './pages/HomePage';
-import PokemonDetailsPage from './pages/PokemonDetailsPage';
-import SearchPage from './pages/SearchPage';                   // ← add this
 import { ErrorMessage } from './components/ui';
 
+// This is the list of pages in the app, and the address each one lives at.
 export default function App() {
   return (
     <BrowserRouter>
@@ -12,8 +11,6 @@ export default function App() {
         {/* Every page inside here is drawn inside Layout. */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
-          <Route path="/search" element={<SearchPage />} />     {/* ← add this */}
 
           {/* "*" matches any address we did not list above. */}
           <Route
