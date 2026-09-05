@@ -48,15 +48,15 @@ export function TypeFilter({ selectedType }) {
   return (
     <nav className="mt-6 flex gap-2 overflow-x-auto pb-2">
       <Link
-        to="/"
-        className={
-          selectedType
-            ? 'shrink-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-600 ring-1 ring-slate-200'
-            : 'shrink-0 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white'
-        }
-      >
-        All
-      </Link>
+  to="/"
+  className={
+    selectedType
+      ? 'shrink-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-600 ring-1 ring-slate-200'
+      : 'shrink-0 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white'
+  }
+>
+  All
+</Link>
 
       {types.map((type) => (
         <Link
