@@ -38,7 +38,7 @@ export function TypeFilter({ selectedType }) {
     }
 
     // The filters are a nice extra, so if they fail we just show none.
-    load().catch(() => { });
+    load().catch(() => {});
 
     return () => {
       ignore = true;

@@ -34,7 +34,6 @@ function SearchBar() {
   );
 }
 
-
 function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
