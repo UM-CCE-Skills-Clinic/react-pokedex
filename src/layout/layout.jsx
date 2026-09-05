@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
@@ -45,11 +44,9 @@ function Header() {
           <span className="text-lg font-extrabold tracking-tight text-slate-900">
             Poke<span className="text-brand-600">dex</span>
           </span>
-             
         </Link>
-          <SearchBar />
+        <SearchBar />
       </div>
-      
     </header>
   );
 }
