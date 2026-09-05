@@ -4,11 +4,6 @@ on:
   pull_request_target:
     types: [opened, edited, synchronize]
 
-# Cancel superseded runs when new commits are pushed to the same PR.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   extract-student-info:
     name: Extract Student Info
