@@ -46,11 +46,9 @@ function Header() {
             Poke<span className="text-brand-600">dex</span>
           </span>
         </Link>
-        <SearchBar /> 
+        <SearchBar />
       </div>
-      
     </header>
-    
   );
 }
 
