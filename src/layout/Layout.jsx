@@ -4,7 +4,6 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 // The frame that every page is drawn inside: header, then the page, then footer.
 // React Router puts the current page where <Outlet /> is.
 
-
 function SearchBar() {
   const navigate = useNavigate();
 

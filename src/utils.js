@@ -85,7 +85,6 @@ export async function get(path) {
   }
 }
 
-
 // The API answers are big and awkward, so build one tidy object out of them.
 function buildPokemon(pokemon, species) {
   // The description comes as a list of entries in many languages.
