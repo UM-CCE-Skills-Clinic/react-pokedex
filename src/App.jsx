@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './layout/layout';
 import HomePage from './pages/HomePage';
 import PokemonDetailsPage from './pages/PokemonDetailsPage';
-import SearchPage from './pages/SearchPage'; 
+import SearchPage from './pages/SearchPage';
 import TypePage from './pages/TypePage';
 import { ErrorMessage } from './components/ui';
 
@@ -14,10 +14,10 @@ export default function App() {
         {/* Every page inside here is drawn inside Layout. */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />   
-          <Route path="/search" element={<SearchPage />} /> 
+          <Route path="/pokemon/:nameOrId" element={<PokemonDetailsPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/type/:type" element={<TypePage />} />
-          
+
           {/* "*" matches any address we did not list above. */}
           <Route
             path="*"
