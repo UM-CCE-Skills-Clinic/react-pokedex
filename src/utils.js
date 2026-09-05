@@ -129,3 +129,26 @@ function buildPokemon(pokemon, species) {
     baseHappiness: species ? species.base_happiness : 0
   };
 }
+
+// Load one Pokemon with all of its details.
+// Returns null if there is no Pokemon with that name or id.
+export async function loadPokemon(nameOrId) {
+  const pokemon = await get(`/pokemon/${nameOrId}`);
+
+  if (pokemon === null) {
+    return null;
+  }
+
+  // Special forms like "charizard-mega-x" have no species entry of their own.
+  // That is fine - buildPokemon copes with a null species.
+  const species = await get(`/pokemon-species/${pokemon.id}`);
+
+  return buildPokemon(pokemon, species);
+}
+
+// The list endpoints only give us names, so we load the details for each one.
+// Promise.all runs those requests at the same time, not one after another.
+export async function loadMany(entries) {
+  const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
+  return results.filter((pokemon) => pokemon !== null);
+}
