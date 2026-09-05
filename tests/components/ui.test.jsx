@@ -1,85 +1,82 @@
-import { Link } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, expect, it } from 'vitest';
+import { Empty, ErrorMessage, Loading, Pagination } from '../../src/components/ui';
 
-// Small pieces that several pages share.
-
-// Shown while a page is loading.
-export function Loading({ text = 'Loading Pokemon...' }) {
-  return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-brand-600" />
-      <p className="text-sm font-semibold text-slate-500">{text}</p>
-    </div>
-  );
+// These components use <Link>, which only works inside a router.
+// MemoryRouter is a pretend router for tests.
+function renderWithRouter(ui) {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
 }
 
-// Shown when a search or a filter has no results.
-export function Empty({ text = "We couldn't find any Pokemon matching that." }) {
-  return (
-    <div className="mt-10 flex flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-      <span className="grid h-16 w-16 place-items-center rounded-full bg-slate-100 text-3xl">
-        🔍
-      </span>
-      <h2 className="mt-4 text-lg font-bold text-slate-800">No Pokemon found</h2>
-      <p className="mt-1 max-w-sm text-sm text-slate-500">{text}</p>
-      <Link
-        to="/"
-        className="mt-5 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white"
-      >
-        Back to all Pokemon
-      </Link>
-    </div>
-  );
-}
+describe('Loading', () => {
+  it('shows the default message', () => {
+    renderWithRouter(<Loading />);
 
-// Shown when something went wrong, and on unknown pages.
-export function ErrorMessage({ title = 'Something went wrong', text }) {
-  return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-      <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">{title}</h1>
-      <p className="mt-2 max-w-md text-slate-500">{text}</p>
-      <Link
-        to="/"
-        className="mt-7 rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white"
-      >
-        Back to Pokedex
-      </Link>
-    </div>
-  );
-}
+    expect(screen.getByText('Loading Pokemon...')).toBeInTheDocument();
+  });
 
-// Previous / next buttons. The page number lives in the address bar, so the
-// browser's back button and shared links keep working.
-export function Pagination({ page, totalPages, makeLink }) {
-  if (totalPages <= 1) {
-    return null;
-  }
+  it('shows a message we pass in', () => {
+    renderWithRouter(<Loading text="Searching..." />);
 
-  const buttonStyle =
-    'rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-100';
-  const disabledStyle =
-    'rounded-xl bg-white/60 px-4 py-2.5 text-sm font-semibold text-slate-300 ring-1 ring-slate-200';
+    expect(screen.getByText('Searching...')).toBeInTheDocument();
+  });
+});
 
-  return (
-    <div className="mt-10 flex items-center justify-center gap-3">
-      {page > 1 ? (
-        <Link to={makeLink(page - 1)} className={buttonStyle}>
-          ← Previous
-        </Link>
-      ) : (
-        <span className={disabledStyle}>← Previous</span>
-      )}
+describe('Empty', () => {
+  it('explains that nothing was found and links home', () => {
+    renderWithRouter(<Empty />);
 
-      <span className="rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white">
-        {page} <span className="font-normal text-slate-400">/ {totalPages}</span>
-      </span>
+    expect(screen.getByText('No Pokemon found')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Back to all Pokemon' })).toHaveAttribute('href', '/');
+  });
+});
 
-      {page < totalPages ? (
-        <Link to={makeLink(page + 1)} className={buttonStyle}>
-          Next →
-        </Link>
-      ) : (
-        <span className={disabledStyle}>Next →</span>
-      )}
-    </div>
-  );
-}
+describe('ErrorMessage', () => {
+  it('shows the title and text it is given', () => {
+    renderWithRouter(<ErrorMessage title="Page not found" text="That page does not exist." />);
+
+    expect(screen.getByText('Page not found')).toBeInTheDocument();
+    expect(screen.getByText('That page does not exist.')).toBeInTheDocument();
+  });
+});
+
+describe('Pagination', () => {
+  const makeLink = (page) => `/?page=${page}`;
+
+  it('shows nothing when there is only one page', () => {
+    const { container } = renderWithRouter(
+      <Pagination page={1} totalPages={1} makeLink={makeLink} />
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('shows which page you are on', () => {
+    renderWithRouter(<Pagination page={2} totalPages={5} makeLink={makeLink} />);
+
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('/ 5')).toBeInTheDocument();
+  });
+
+  it('has no Previous link on the first page', () => {
+    renderWithRouter(<Pagination page={1} totalPages={5} makeLink={makeLink} />);
+
+    expect(screen.queryByRole('link', { name: '← Previous' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Next →' })).toHaveAttribute('href', '/?page=2');
+  });
+
+  it('has no Next link on the last page', () => {
+    renderWithRouter(<Pagination page={5} totalPages={5} makeLink={makeLink} />);
+
+    expect(screen.queryByRole('link', { name: 'Next →' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '← Previous' })).toHaveAttribute('href', '/?page=4');
+  });
+
+  it('links both ways in the middle', () => {
+    renderWithRouter(<Pagination page={3} totalPages={5} makeLink={makeLink} />);
+
+    expect(screen.getByRole('link', { name: '← Previous' })).toHaveAttribute('href', '/?page=2');
+    expect(screen.getByRole('link', { name: 'Next →' })).toHaveAttribute('href', '/?page=4');
+  });
+});

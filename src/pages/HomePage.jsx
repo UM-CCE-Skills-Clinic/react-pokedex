@@ -32,18 +32,34 @@ export default function HomePage() {
       }
     }
     load();
-    return () => { ignore = true; };
+    return () => {
+      ignore = true;
+    };
   }, [page]);
 
   if (error) return <ErrorMessage title="Could not load Pokemon" text={error} />;
 
   return (
     <div>
-      <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Discover every Pokemon</h1>
-      <p className="mt-2 max-w-2xl text-slate-500">Browse the Pokedex, filter by type, or search by name and ID. Click any Pokemon to see its full stats.</p>
+      <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+        Discover every Pokemon
+      </h1>
+      <p className="mt-2 max-w-2xl text-slate-500">
+        Browse the Pokedex, filter by type, or search by name and ID. Click any Pokemon to see its
+        full stats.
+      </p>
       <TypeFilter selectedType="" />
       {loading && <Loading />}
-      {!loading && data && <div>{data.pokemon.length === 0 ? <Empty /> : <PokemonGrid pokemon={data.pokemon} />}<Pagination page={page} totalPages={data.totalPages} makeLink={(target) => `/?page=${target}`} /></div>}
+      {!loading && data && (
+        <div>
+          {data.pokemon.length === 0 ? <Empty /> : <PokemonGrid pokemon={data.pokemon} />}
+          <Pagination
+            page={page}
+            totalPages={data.totalPages}
+            makeLink={(target) => `/?page=${target}`}
+          />
+        </div>
+      )}
     </div>
   );
 }
