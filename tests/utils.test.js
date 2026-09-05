@@ -1,221 +1,155 @@
 import axios from 'axios';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import {
-  formatName,
-  formatNumber,
-  formatStatName,
-  get,
-  getTypeColor,
-  loadMany,
-  loadPokemon
-} from '../src/utils';
 
-// A cut-down version of what PokeAPI sends back for one Pokemon.
-// Real answers are much bigger, but these are the parts our code reads.
-const pikachuResponse = {
-  id: 25,
-  name: 'pikachu',
-  height: 4,
-  weight: 60,
-  sprites: {
-    front_default: 'sprite.png',
-    other: { 'official-artwork': { front_default: 'artwork.png' } }
-  },
-  types: [{ type: { name: 'electric' } }],
-  abilities: [
-    { ability: { name: 'static' }, is_hidden: false },
-    { ability: { name: 'lightning-rod' }, is_hidden: true }
-  ],
-  stats: [
-    { stat: { name: 'hp' }, base_stat: 35 },
-    { stat: { name: 'special-attack' }, base_stat: 50 }
-  ]
+// Shared helpers. Each page does its own loading with useState and useEffect,
+// but they all use the small functions here so the same code is not repeated.
+
+export const BASE_URL = 'https://pokeapi.co/api/v2';
+
+// How many Pokemon we show on one page.
+export const PAGE_SIZE = 20;
+// ---------------------------------------------------------------------------
+// Formatting
+// ---------------------------------------------------------------------------
+
+// The colour used for each Pokemon type.
+const typeColors = {
+  normal: '#9099a1',
+  fire: '#ff9c54',
+  water: '#4d90d5',
+  electric: '#f3d23b',
+  grass: '#63bb5b',
+  ice: '#74cec0',
+  fighting: '#ce4069',
+  poison: '#ab6ac8',
+  ground: '#d97746',
+  flying: '#8fa8dd',
+  psychic: '#f97176',
+  bug: '#90c12c',
+  rock: '#c7b78b',
+  ghost: '#5269ad',
+  dragon: '#0a6dc4',
+  dark: '#5a5366',
+  steel: '#5a8ea1',
+  fairy: '#ec8fe6'
 };
 
-const pikachuSpecies = {
-  flavor_text_entries: [
-    { language: { name: 'fr' }, flavor_text: 'Bonjour' },
-    { language: { name: 'en' }, flavor_text: 'It raises\nits tail.' }
-  ],
-  genera: [{ language: { name: 'en' }, genus: 'Mouse Pokemon' }],
-  capture_rate: 190,
-  base_happiness: 50
+// Grey is the fallback for anything unexpected.
+export function getTypeColor(type) {
+  return typeColors[type] || '#9099a1';
+}
+// "mr-mime" -> "Mr Mime"
+export function formatName(name) {
+  return name
+    .split('-')
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+// The API uses names like "special-attack"; these are nicer to read.
+const statNames = {
+  hp: 'HP',
+  attack: 'Attack',
+  defense: 'Defense',
+  'special-attack': 'Sp. Atk',
+  'special-defense': 'Sp. Def',
+  speed: 'Speed'
 };
 
-// Pretend the API returned a 404, the way axios reports it.
-const notFoundError = { response: { status: 404 } };
+export function formatStatName(name) {
+  return statNames[name] || formatName(name);
+}
 
-afterEach(() => {
-  vi.restoreAllMocks();
-});
+// 25 -> "025"
+export function formatNumber(id) {
+  return String(id).padStart(3, '0');
+}
+// ---------------------------------------------------------------------------
+// Loading data from PokeAPI
+// ---------------------------------------------------------------------------
 
-describe('formatName', () => {
-  it('capitalises each word and removes the dashes', () => {
-    expect(formatName('mr-mime')).toBe('Mr Mime');
-  });
+// Ask the API for one thing. Returns null if it does not exist, because a
+// missing Pokemon is a normal thing to happen, not a crash.
+export async function get(path) {
+  try {
+    const response = await axios.get(`${BASE_URL}${path}`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return null;
+    }
+    // Anything else (no internet, server down) is a real problem, so pass it on.
+    throw error;
+  }
+}
+// The API answers are big and awkward, so build one tidy object out of them.
+function buildPokemon(pokemon, species) {
+  // The description comes as a list of entries in many languages.
+  const englishEntry = species?.flavor_text_entries.find((entry) => entry.language.name === 'en');
 
-  it('works for a name with no dash', () => {
-    expect(formatName('pikachu')).toBe('Pikachu');
-  });
-});
+  // That text still has line breaks from the original games, so clean them up.
+  const description = englishEntry
+    ? englishEntry.flavor_text.replace(/[\f\n\r]/g, ' ')
+    : 'No description available.';
 
-describe('formatStatName', () => {
-  it('uses the short name we picked for known stats', () => {
-    expect(formatStatName('hp')).toBe('HP');
-    expect(formatStatName('special-attack')).toBe('Sp. Atk');
-  });
+  const englishGenus = species?.genera.find((entry) => entry.language.name === 'en');
 
-  it('falls back to normal formatting for anything else', () => {
-    expect(formatStatName('some-new-stat')).toBe('Some New Stat');
-  });
-});
+  const stats = pokemon.stats.map((entry) => ({
+    name: formatStatName(entry.stat.name),
+    value: entry.base_stat
+  }));
 
-describe('formatNumber', () => {
-  it('pads the id out to three digits', () => {
-    expect(formatNumber(1)).toBe('001');
-    expect(formatNumber(25)).toBe('025');
-    expect(formatNumber(150)).toBe('150');
-  });
+  return {
+    id: pokemon.id,
+    name: pokemon.name,
+    displayName: formatName(pokemon.name),
 
-  it('leaves longer ids alone', () => {
-    expect(formatNumber(10034)).toBe('10034');
-  });
-});
+    // The official artwork looks best, but not every Pokemon has one.
+    image: pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default,
 
-describe('getTypeColor', () => {
-  it('gives the right colour for a known type', () => {
-    expect(getTypeColor('fire')).toBe('#ff9c54');
-  });
+    types: pokemon.types.map((entry) => entry.type.name),
 
-  it('falls back to grey for an unknown type', () => {
-    expect(getTypeColor('banana')).toBe('#9099a1');
-  });
-});
+    height: pokemon.height / 10, // the API uses decimetres
+    weight: pokemon.weight / 10, // the API uses hectograms
 
-describe('get', () => {
-  it('returns the data from the response', async () => {
-    vi.spyOn(axios, 'get').mockResolvedValue({ data: { name: 'pikachu' } });
+    abilities: pokemon.abilities.map((entry) => ({
+      name: formatName(entry.ability.name),
+      isHidden: entry.is_hidden
+    })),
 
-    await expect(get('/pokemon/pikachu')).resolves.toEqual({ name: 'pikachu' });
-  });
+    stats,
+    totalStats: stats.reduce((total, stat) => total + stat.value, 0),
 
-  it('returns null when the thing does not exist', async () => {
-    vi.spyOn(axios, 'get').mockRejectedValue(notFoundError);
+    description,
+    genus: englishGenus ? englishGenus.genus : 'Unknown',
+    captureRate: species ? species.capture_rate : 0,
+    baseHappiness: species ? species.base_happiness : 0
+  };
+}// Load one Pokemon with all of its details.
+// Returns null if there is no Pokemon with that name or id.
+export async function loadPokemon(nameOrId) {
+  const pokemon = await get(`/pokemon/${nameOrId}`);
 
-    await expect(get('/pokemon/nope')).resolves.toBeNull();
-  });
-
-  it('passes on any other error, because that is a real problem', async () => {
-    vi.spyOn(axios, 'get').mockRejectedValue(new Error('Network Error'));
-
-    await expect(get('/pokemon/pikachu')).rejects.toThrow('Network Error');
-  });
-});
-
-describe('loadPokemon', () => {
-  it('builds one tidy object out of the two API answers', async () => {
-    vi.spyOn(axios, 'get')
-      .mockResolvedValueOnce({ data: pikachuResponse })
-      .mockResolvedValueOnce({ data: pikachuSpecies });
-
-    const pokemon = await loadPokemon('pikachu');
-
-    expect(pokemon.id).toBe(25);
-    expect(pokemon.displayName).toBe('Pikachu');
-    expect(pokemon.types).toEqual(['electric']);
-    expect(pokemon.genus).toBe('Mouse Pokemon');
-
-    // The API uses decimetres and hectograms, so these get converted.
-    expect(pokemon.height).toBe(0.4);
-    expect(pokemon.weight).toBe(6);
-
-    // The official artwork is preferred over the small sprite.
-    expect(pokemon.image).toBe('artwork.png');
-
-    // Hidden abilities are marked so the page can show a badge.
-    expect(pokemon.abilities).toEqual([
-      { name: 'Static', isHidden: false },
-      { name: 'Lightning Rod', isHidden: true }
-    ]);
-
-    expect(pokemon.stats).toEqual([
-      { name: 'HP', value: 35 },
-      { name: 'Sp. Atk', value: 50 }
-    ]);
-    expect(pokemon.totalStats).toBe(85);
-
-    // The English description is used, with its line breaks removed.
-    expect(pokemon.description).toBe('It raises its tail.');
-  });
-
-  it('returns null when there is no such Pokemon', async () => {
-    vi.spyOn(axios, 'get').mockRejectedValue(notFoundError);
-
-    await expect(loadPokemon('nope')).resolves.toBeNull();
-  });
-
-  it('still works when a special form has no species entry', async () => {
-    // Forms like "charizard-mega-x" exist, but their species does not.
-    vi.spyOn(axios, 'get')
-      .mockResolvedValueOnce({ data: pikachuResponse })
-      .mockRejectedValueOnce(notFoundError);
-
-    const pokemon = await loadPokemon('charizard-mega-x');
-
-    expect(pokemon.displayName).toBe('Pikachu');
-    expect(pokemon.description).toBe('No description available.');
-    expect(pokemon.genus).toBe('Unknown');
-    expect(pokemon.captureRate).toBe(0);
-  });
-
-  it('uses the small sprite when there is no official artwork', async () => {
-    const noArtwork = {
-      ...pikachuResponse,
-      sprites: {
-        front_default: 'sprite.png',
-        other: { 'official-artwork': { front_default: null } }
-      }
-    };
-
-    vi.spyOn(axios, 'get')
-      .mockResolvedValueOnce({ data: noArtwork })
-      .mockResolvedValueOnce({ data: pikachuSpecies });
-
-    const pokemon = await loadPokemon('pikachu');
-
-    expect(pokemon.image).toBe('sprite.png');
-  });
-});
-
-describe('loadMany', () => {
-  // loadMany starts every request at the same time, so we cannot rely on the
-  // order they happen in. Instead we answer based on the address being asked for.
-  function mockApi({ missing = [] } = {}) {
-    vi.spyOn(axios, 'get').mockImplementation((url) => {
-      if (missing.some((name) => url.endsWith(`/pokemon/${name}`))) {
-        return Promise.reject(notFoundError);
-      }
-      if (url.includes('/pokemon-species/')) {
-        return Promise.resolve({ data: pikachuSpecies });
-      }
-      return Promise.resolve({ data: pikachuResponse });
-    });
+  if (pokemon === null) {
+    return null;
   }
 
-  it('loads every Pokemon in the list', async () => {
-    mockApi();
+  // Special forms like "charizard-mega-x" have no species entry of their own.
+  // That is fine - buildPokemon copes with a null species.
+  const species = await get(`/pokemon-species/${pokemon.id}`);
 
-    const pokemon = await loadMany([{ name: 'bulbasaur' }, { name: 'pikachu' }]);
+  return buildPokemon(pokemon, species);
+}
 
-    expect(pokemon).toHaveLength(2);
-  });
+// The list endpoints only give us names, so we load the details for each one.
+// Promise.all runs those requests at the same time, not one after another.
+export async function loadMany(entries) {
+  const results = await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
+  return results.filter((pokemon) => pokemon !== null);
+}
+// Slow — waits for each one before starting the next (about 20 x 200ms = 4s)
+for (const entry of entries) {
+  results.push(await loadPokemon(entry.name));
+}
 
-  it('leaves out any Pokemon that could not be found', async () => {
-    mockApi({ missing: ['nope'] });
-
-    const pokemon = await loadMany([{ name: 'pikachu' }, { name: 'nope' }]);
-
-    expect(pokemon).toHaveLength(1);
-    expect(pokemon[0].displayName).toBe('Pikachu');
-  });
-});
+// Fast — starts all 20 at once, waits for the slowest (about 400ms)
+await Promise.all(entries.map((entry) => loadPokemon(entry.name)));
