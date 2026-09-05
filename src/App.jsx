@@ -1,10 +1,29 @@
-function App() {
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layout/Layout';
+import HomePage from './pages/HomePage';
+import { ErrorMessage } from './components/ui';
+
+// This is the list of pages in the app, and the address each one lives at.
+export default function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50">
-      <h1 className="text-3xl font-extrabold text-slate-800">Pokedex</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Every page inside here is drawn inside Layout. */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+
+          {/* "*" matches any address we did not list above. */}
+          <Route
+            path="*"
+            element={
+              <ErrorMessage
+                title="Page not found"
+                text="The page you are looking for does not exist."
+              />
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
-
