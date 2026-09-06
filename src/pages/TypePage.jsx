@@ -4,9 +4,7 @@ import PokemonGrid, { TypeFilter } from '../components/PokemonGrid';
 import { Empty, ErrorMessage, Loading, Pagination } from '../components/ui';
 import { PAGE_SIZE, get, loadMany } from '../utils';
 
-// Every Pokemon of one type, e.g. "/type/water?page=2".
 export default function TypePage() {
-  // `type` comes from the route "/type/:type".
   const { type } = useParams();
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
@@ -25,7 +23,6 @@ export default function TypePage() {
       try {
         const result = await get(`/type/${type}`);
 
-        // The API gives us null when there is no type with this name.
         if (result === null) {
           if (!ignore) {
             setData(null);
@@ -34,8 +31,6 @@ export default function TypePage() {
           return;
         }
 
-        // The API nests each entry, so pull out the actual Pokemon. We get all
-        // of them at once, so slice out just the page we want to show.
         const members = result.pokemon.map((entry) => entry.pokemon);
         const offset = (page - 1) * PAGE_SIZE;
         const pokemon = await loadMany(members.slice(offset, offset + PAGE_SIZE));
